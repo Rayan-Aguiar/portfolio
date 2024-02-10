@@ -15,8 +15,16 @@ module.exports = {
       screens: {
         "2xl": "1400px",
       },
+     
     },
+    
     extend: {
+      colors:{
+        "darkblue": "#070D1C",
+        "darkblue2": "#0D1531",
+        "darkblue3": "#1F284F",
+        "lightblue": "#245BD2"
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
