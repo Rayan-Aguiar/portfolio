@@ -1,9 +1,9 @@
 
-import AsideContent from "../Aside";
-import Header from "../Header";
-import MiniAboutMe from "../MiniAboutMe";
-import Projects from "../Projects";
-import WorkExperience from "../Work";
+import AsideContent from "../../components/Aside";
+import Header from "../../components/Header";
+import MiniAboutMe from "../../components/MiniAboutMe";
+import Projects from "../../components/Projects";
+import WorkExperience from "../../components/Work";
 
 
 export default function Home() {

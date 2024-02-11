@@ -11,6 +11,7 @@ interface Props {
 }
 
 export default function ProjectLeft({ title, description, linkGit, linkSite, img }: Props) {
+  
   return (
     <div className="flex justify-between items-center mt-6">
       <div className="ml-2">
