@@ -1,11 +1,13 @@
-import { FcKindle } from "react-icons/fc";
+
 import AsideContent from "../Aside";
 import Header from "../Header";
-import { ChevronRight } from "lucide-react";
 import MiniAboutMe from "../MiniAboutMe";
+import Projects from "../Projects";
+import WorkExperience from "../Work";
+
 
 export default function Home() {
- 
+  
 
   return (
     <>
@@ -17,6 +19,8 @@ export default function Home() {
         <main className="w-4/5 min:h-screen h-fit flex flex-col items-center overflow-y-auto p-8">
           <Header />
           <MiniAboutMe />
+          <WorkExperience />
+          <Projects />          
         </main>
       </div>
     </>

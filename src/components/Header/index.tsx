@@ -1,11 +1,12 @@
+import Rayan from "../../assets/img/rayan.jpg"
+
 export default function Header(){
-    const imgAvatar =
-    "https://cdn.iconscout.com/icon/free/png-256/free-avatar-370-456322.png?f=webp";
+
     return(
         <div className="flex w-4/5 h-fit gap-8 items-center">
             <div>
               {" "}
-              <img src={imgAvatar} alt="Minha foto" className="w-32 h-32" />
+              <img src={Rayan} alt="Minha foto" className="w-32 h-32 rounded-2xl" />
             </div>
             <div className="text-white">
               <h1 className="font-bold text-4xl">Rayan Siqueira</h1>
