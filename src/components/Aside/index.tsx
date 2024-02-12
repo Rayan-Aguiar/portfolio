@@ -31,10 +31,12 @@ export default function AsideContent() {
             </li>
 
           </Link>
-          <li className="flex gap-2 items-center hover:bg-white/10 p-2 w-full rounded-md duration-75 cursor-pointer text-sm">
-            <Laptop2 className="text-lightblue w-4 h-4" />
-            Tecnologias e Ferramentas
-          </li>
+          <Link to="/technologies">
+            <li className="flex gap-2 items-center hover:bg-white/10 p-2 w-full rounded-md duration-75 cursor-pointer text-sm">
+              <Laptop2 className="text-lightblue w-4 h-4" />
+              Tecnologias e Ferramentas
+            </li>
+          </Link>
         </ul>
       </div>
 

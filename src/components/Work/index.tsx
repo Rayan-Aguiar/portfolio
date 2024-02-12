@@ -12,9 +12,12 @@ export default function WorkExperience() {
           <FcBriefcase />
           Experiências
         </h2>
-        <span className="text-lightblue  cursor-pointer flex items-center hover:underline text-xs ">
+        <a href="https://www.linkedin.com/in/rayan-siqueira/" target="_blank" rel="noopener noreferrer">
+          <span className="text-lightblue  cursor-pointer flex items-center hover:underline text-xs ">
           Contrate-me <ChevronRight className="w-4 h-4" />{" "}
         </span>
+
+        </a>
       </div>
 
       <div className="grid grid-cols-2 mt-4 items-center ">
