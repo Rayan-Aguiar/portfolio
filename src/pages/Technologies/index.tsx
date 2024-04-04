@@ -23,10 +23,10 @@ export default function Technologies() {
             Explore as tecnologias e ferramentas que impulsionam a minha experiência em desenvolvimento. Eu seleciono e uso meticulosamente essas ferramentas para criar soluções robustas e eficientes, priorizando sempre a experiência do usuário.
             </p>                  
         </header>
-        <div className="w-4/5">
+        <div className="w-4/5 ">
             <div>
                 <h2 className="font-bold text-2xl mt-8">Front-End</h2>
-                <div className="mt-2 grid grid-cols-4 gap-2">
+                <div className="mt-2 flex flex-wrap w-fit gap-2">
                     {techs.map((tech, index)=>(
                         <div key={index}>
                             <Techs title={tech.title} image={tech.image} link={tech.link} />
@@ -36,7 +36,7 @@ export default function Technologies() {
             </div>
             <div>
                 <h2 className="font-bold text-2xl mt-8">Back-End</h2>
-                <div className="mt-2 grid grid-cols-4 gap-2">
+                <div className="mt-2 flex flex-wrap w-fit gap-2">
                     {techsBack.map((techBack, index)=>(
                         <div key={index}>
                             <Techs title={techBack.title} image={techBack.image} link={techBack.link} />
@@ -46,7 +46,7 @@ export default function Technologies() {
             </div>
             <div>
                 <h2 className="font-bold text-2xl mt-8">Controle de versões</h2>
-                <div className="mt-2 grid grid-cols-4 gap-2">
+                <div className="mt-2 flex flex-wrap w-fit gap-2">
                     {techsControls.map((techControls, index)=>(
                         <div key={index}>
                             <Techs title={techControls.title} image={techControls.image} link={techControls.link} />
@@ -56,7 +56,7 @@ export default function Technologies() {
             </div>
             <div>
                 <h2 className="font-bold text-2xl mt-8">Infraestrutura</h2>
-                <div className="mt-2 grid grid-cols-4 gap-2">
+                <div className="mt-2 flex flex-wrap w-fit gap-2">
                     {techsInfra.map((techInfra, index)=>(
                         <div key={index}>
                             <Techs title={techInfra.title} image={techInfra.image} link={techInfra.link} />
@@ -66,7 +66,7 @@ export default function Technologies() {
             </div>
             <div>
                 <h2 className="font-bold text-2xl mt-8">Designer</h2>
-                <div className="mt-2 grid grid-cols-4 gap-2">
+                <div className="mt-2 flex flex-wrap w-fit gap-2">
                     {techsDesigner.map((techDesigner, index)=>(
                         <div key={index}>
                             <Techs title={techDesigner.title} image={techDesigner.image} link={techDesigner.link} />
@@ -76,7 +76,7 @@ export default function Technologies() {
             </div>
             <div>
                 <h2 className="font-bold text-2xl mt-8">Banco de dados</h2>
-                <div className="mt-2 grid grid-cols-4 gap-2">
+                <div className="mt-2 flex flex-wrap w-fit gap-2">
                     {techsBD.map((techBD, index)=>(
                         <div key={index}>
                             <Techs title={techBD.title} image={techBD.image} link={techBD.link} />
@@ -86,7 +86,7 @@ export default function Technologies() {
             </div>
             <div>
                 <h2 className="font-bold text-2xl mt-8">Aplicativos</h2>
-                <div className="mt-2 grid grid-cols-4 gap-2">
+                <div className="mt-2 flex flex-wrap w-fit gap-2">
                     {techsApp.map((techApp, index)=>(
                         <div key={index}>
                             <Techs title={techApp.title} image={techApp.image} link={techApp.link} />

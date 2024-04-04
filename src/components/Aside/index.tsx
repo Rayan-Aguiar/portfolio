@@ -45,25 +45,28 @@ export default function AsideContent() {
           Redes Sociais
         </span>
         <ul className="mt-2">
-          <li className="flex gap-2 items-center justify-between hover:bg-white/10 p-2 w-full rounded-md duration-75 cursor-pointer text-sm">
-            <div className="flex gap-2 items-center">
-              <GitHubLogoIcon className="text-lightblue w-4 h-4" />
-              GitHub
-            </div>
-            <div>
-              <ArrowUpRight className="text-lightblue w-4 h-4" />
-            </div>
-          </li>
-
-          <li className="flex gap-2 items-center justify-between hover:bg-white/10 p-2 w-full rounded-md duration-75 cursor-pointer text-sm">
-            <div className="flex gap-2 items-center">
-              <LinkedInLogoIcon className="text-lightblue w-4 h-4" />
-              Linkedin
-            </div>
-            <div>
-              <ArrowUpRight className="text-lightblue w-4 h-4" />
-            </div>
-          </li>
+          <a href="https://github.com/Rayan-Aguiar" target="_blank" rel="noopener noreferrer">
+            <li className="flex gap-2 items-center justify-between hover:bg-white/10 p-2 w-full rounded-md duration-75 cursor-pointer text-sm">
+              <div className="flex gap-2 items-center">
+                <GitHubLogoIcon className="text-lightblue w-4 h-4" />
+                GitHub
+              </div>
+              <div>
+                <ArrowUpRight className="text-lightblue w-4 h-4" />
+              </div>
+            </li>
+          </a>
+          <a href="https://www.linkedin.com/in/rayan-siqueira/" target="_blank" rel="noopener noreferrer">
+            <li className="flex gap-2 items-center justify-between hover:bg-white/10 p-2 w-full rounded-md duration-75 cursor-pointer text-sm">
+              <div className="flex gap-2 items-center">
+                <LinkedInLogoIcon className="text-lightblue w-4 h-4" />
+                Linkedin
+              </div>
+              <div>
+                <ArrowUpRight className="text-lightblue w-4 h-4" />
+              </div>
+            </li>
+          </a>
         </ul>
       </div>
     </>

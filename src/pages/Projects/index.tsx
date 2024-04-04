@@ -13,7 +13,7 @@ export default function Projects() {
       </aside>
 
       <main className="w-4/5 min:h-screen h-fit flex flex-col items-center overflow-y-auto p-8 text-white">
-        <header className="">
+        <header className="flex flex-col  md:w-[1000px] ">
           <h1 className="text-4xl font-bold">Meus Projetos</h1>
           <div className="text-zinc-500 flex gap-2">
             <span>
@@ -35,63 +35,62 @@ export default function Projects() {
         <h2 className="text-2xl text-zinc-200 font-semibold mt-8">
             Front-end
           </h2>
-          <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
-          <CardProjects
-            title="Lorem"
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
-            id saepe tenetur."
-            image={imgLorem}
-            linkGit="https://github.com/"
-            linkSite="https://github.com"
-          />
-          <CardProjects
-            title="Lorem"
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
-            id saepe tenetur."
-            image={imgLorem}
-            linkGit="https://github.com/"
-            linkSite="https://github.com"
-          />
-          <CardProjects
-            title="Lorem"
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
-            id saepe tenetur."
-            image={imgLorem}
-            linkGit="https://github.com/"
-            linkSite="https://github.com"
-          />
-
+          <div className="flex flex-wrap gap-4">
+            <CardProjects
+              title="Lorem"
+              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
+              id saepe tenetur."
+              image={imgLorem}
+              linkGit="https://github.com/"
+              linkSite="https://github.com"
+            />
+            <CardProjects
+              title="Lorem"
+              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
+              id saepe tenetur."
+              image={imgLorem}
+              linkGit="https://github.com/"
+              linkSite="https://github.com"
+            />
+            <CardProjects
+              title="Lorem"
+              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
+              id saepe tenetur."
+              image={imgLorem}
+              linkGit="https://github.com/"
+              linkSite="https://github.com"
+            />
           </div>
         </div>
         <div>
         <h2 className="text-2xl text-zinc-200 font-semibold mt-8">
             Back-End
           </h2>
-          <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
-          <CardProjects
-            title="Lorem"
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
-            id saepe tenetur."
-            image={imgLorem}
-            linkGit="https://github.com/"
-            linkSite="https://github.com"
-          />
-          <CardProjects
-            title="Lorem"
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
-            id saepe tenetur."
-            image={imgLorem}
-            linkGit="https://github.com/"
-            linkSite="https://github.com"
-          />
-          <CardProjects
-            title="Lorem"
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
-            id saepe tenetur."
-            image={imgLorem}
-            linkGit="https://github.com/"
-            linkSite="https://github.com"
-          />
+          <div className="flex flex-wrap  gap-4">
+            <CardProjects
+              title="Lorem"
+              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
+              id saepe tenetur."
+              image={imgLorem}
+              linkGit="https://github.com/"
+              linkSite="https://github.com"
+            />
+            <CardProjects
+              title="Lorem"
+              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
+              id saepe tenetur."
+              image={imgLorem}
+              linkGit="https://github.com/"
+              linkSite="https://github.com"
+            />
+            <CardProjects
+              title="Lorem"
+              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
+              id saepe tenetur."
+              image={imgLorem}
+              linkGit="https://github.com/"
+              linkSite="https://github.com"
+            />
 
           </div>
         </div>
