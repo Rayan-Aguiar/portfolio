@@ -2,6 +2,7 @@ import { ChevronRight } from "lucide-react";
 import ProjectLeft from "../ProjectLeft";
 import ProjectRight from "../ProjectRight";
 import { FcFolder } from "react-icons/fc";
+import { Link } from "react-router-dom";
 
 export default function Projects() {
     const imgLorem =
@@ -13,9 +14,11 @@ export default function Projects() {
           <FcFolder />
           Meus projetos
         </h2>
-        <span className="text-lightblue  cursor-pointer flex items-center hover:underline text-xs ">
-          Ver todos <ChevronRight className="w-4 h-4" />
-        </span>
+        <Link to="/projects">
+          <span className="text-lightblue  cursor-pointer flex items-center hover:underline text-xs ">
+            Ver todos <ChevronRight className="w-4 h-4" />
+          </span>
+        </Link>
       </div>
       <ProjectRight
         title="Lorem"
