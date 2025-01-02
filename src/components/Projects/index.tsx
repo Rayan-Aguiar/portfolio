@@ -2,9 +2,10 @@ import { ChevronRight } from "lucide-react";
 import ProjectLeft from "../ProjectLeft";
 import ProjectRight from "../ProjectRight";
 import { FcFolder } from "react-icons/fc";
+import { Link } from "react-router-dom";
 
 export default function Projects() {
-    const imgLorem =
+  const imgLorem =
     "https://cdn.sanity.io/images/v6oximkk/production/21d23aacc75f36df01310f8782e8102a0882276f-1600x900.jpg?w=1600&h=900&auto=format";
   return (
     <div className="w-4/5 h-fit border border-white/20 rounded-lg mt-6 p-8 text-white">
@@ -13,9 +14,11 @@ export default function Projects() {
           <FcFolder />
           Meus projetos
         </h2>
-        <span className="text-lightblue  cursor-pointer flex items-center hover:underline text-xs ">
-          Ver todos <ChevronRight className="w-4 h-4" />
-        </span>
+        <Link to="/projects">
+          <span className="text-lightblue  cursor-pointer flex items-center hover:underline text-xs ">
+            Ver todos <ChevronRight className="w-4 h-4" />
+          </span>
+        </Link>
       </div>
       <ProjectRight
         title="Lorem"

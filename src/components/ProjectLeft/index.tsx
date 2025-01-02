@@ -37,7 +37,7 @@ export default function ProjectLeft({ title, description, linkGit, linkSite, img
         </div>
       </div>
       <div className="w-1/2">
-        <img src={img} alt="image project" className="rounded-lg origin-top-right rotate-3 hover:rotate-0 duration-300 cursor-zoom-in" />
+        <img src={img} alt="image project" className="rounded-lg transform hover:scale-105 duration-300" />
       </div>
     </div>
   );

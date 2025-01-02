@@ -20,7 +20,7 @@ export default function ProjectRight({
   return (
     <div className="flex justify-between items-center mt-10">
       <div className="w-1/2">
-        <img src={img} alt="image project" className="rounded-lg origin-top-left rotate-3 hover:rotate-0 duration-300 cursor-zoom-in" />
+        <img src={img} alt="image project" className="rounded-lg transform hover:scale-105 duration-300 " />
       </div>
       <div className="mr-2">
         <h4 className="font-bold text-2xl text-right">{title}</h4>

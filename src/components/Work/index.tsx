@@ -1,8 +1,10 @@
 import { ChevronRight } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { FcBriefcase } from "react-icons/fc";
+import { WorkExperienceitems } from "../WorkExperience";
+
 import G1learn from "../../assets/img/G1learn.jpeg";
 import Unisuam from "../../assets/img/unisuam.png";
+import M2 from "../../assets/img/m2.jpg";
 
 export default function WorkExperience() {
   return (
@@ -12,42 +14,38 @@ export default function WorkExperience() {
           <FcBriefcase />
           Experiências
         </h2>
-        <a href="https://www.linkedin.com/in/rayan-siqueira/" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://www.linkedin.com/in/rayan-siqueira/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <span className="text-lightblue  cursor-pointer flex items-center hover:underline text-xs ">
-          Contrate-me <ChevronRight className="w-4 h-4" />{" "}
-        </span>
-
+            Contrate-me <ChevronRight className="w-4 h-4" />{" "}
+          </span>
         </a>
       </div>
 
-      <div className="grid grid-cols-2 mt-4 items-center ">
-        <div className="flex gap-4">
-          <Avatar>
-            <AvatarImage src={G1learn} />
-            <AvatarFallback>G1 learn</AvatarFallback>
-          </Avatar>
-          <div className="flex flex-col">
-            <h3 className="font-bold">G1 Learn</h3>
-            <p className="text-zinc-500 text-sm">Desenvolvedor Front-end</p>
-            <p className="text-zinc-500 text-xs font-medium">
-              2022 - Atualmente
-            </p>
-          </div>
-        </div>
-
-        <div className="flex gap-4">
-          <Avatar>
-            <AvatarImage src={Unisuam} />
-            <AvatarFallback>Unisuam</AvatarFallback>
-          </Avatar>
-          <div className="flex flex-col">
-            <h3 className="font-bold">Unisuam</h3>
-            <p className="text-zinc-500 text-sm">Ciência da Computação</p>
-            <p className="text-zinc-500 text-xs font-medium">
-              2023 - Concluído
-            </p>
-          </div>
-        </div>
+      <div className="grid grid-cols-3 mt-4 items-center gap-6">
+        <WorkExperienceitems
+          avatar={M2}
+          description="Desenvolvedor Mobile"
+          duration="Atualmente"
+          tittle="M2Flex"
+        />
+        <WorkExperienceitems
+          avatar={G1learn}
+          description="Desenvolvedor Full-Stack"
+          duration="2022 - 2024"
+          tittle="G1learn"
+        />
+        <WorkExperienceitems
+          avatar={Unisuam}
+          description="Estudante de Ciência da Computação"
+          duration="Concluido"
+          tittle="Unisuam"
+        />
+        
+        
       </div>
     </div>
   );

@@ -14,9 +14,12 @@ export default function MiniAboutMe() {
         </span>
       </div>
       <p className="text-zinc-500 text-justify mt-4">
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ea cumque cum
-        placeat. Labore laborum eveniet sint maxime autem excepturi aspernatur
-        quos, facere ad? Debitis tenetur neque officia? Porro, ad magnam.
+        Desenvolvedor com experiência no ecossistema JavaScript, atuando com
+        React.js, TypeScript, Node.js, React Native, TailwindCSS, Styled
+        Components, Prisma e PostgreSQL para criar soluções completas e
+        impactantes. Tenho capacidade de atuar em todas as camadas do
+        desenvolvimento, do front-end ao back-end, entregando produtos robustos
+        e funcionais.
       </p>
     </div>
   );
