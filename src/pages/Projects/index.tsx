@@ -1,10 +1,22 @@
 import AsideContent from "@/components/Aside";
-import CardProjects from "@/components/CardProjects";
+import { CardInfoProject } from "@/components/CardInfoProject";
+
+import { ProjectList } from "@/config/projects";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 
 export default function Projects() {
-  const imgLorem =
-    "https://cdn.sanity.io/images/v6oximkk/production/21d23aacc75f36df01310f8782e8102a0882276f-1600x900.jpg?w=1600&h=900&auto=format";
+  const frontEndProjects = ProjectList.filter(
+    (project) => project.type === "Front-End"
+  );
+  const backEndProjects = ProjectList.filter(
+    (project) => project.type === "Back-End"
+  );
+  const mobileProjects = ProjectList.filter(
+    (project) => project.type === "Mobile"
+  );
+  const FullStackProjects = ProjectList.filter(
+    (project) => project.type === "Full-Stack"
+  );
 
   return (
     <div className="min-h-screen w-full flex">
@@ -12,8 +24,9 @@ export default function Projects() {
         <AsideContent />
       </aside>
 
-      <main className="w-4/5 min:h-screen h-fit flex flex-col items-center overflow-y-auto p-8 text-white">
-        <header className="flex flex-col  md:w-[1000px] ">
+      <main className="w-4/5 min:h-screen h-fit flex flex-col items-center overflow-y-auto p-8 text-white ">
+      <div className="">
+        <header className="flex flex-col md:w-[1000px] ">
           <h1 className="text-4xl font-bold">Meus Projetos</h1>
           <div className="text-zinc-500 flex gap-2">
             <span>
@@ -21,79 +34,109 @@ export default function Projects() {
               encontra mais em meu
             </span>
             <a
-              href="#"
+              href="https://github.com/Rayan-Aguiar"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex gap-2 items-center text-lightblue hover:underline"
+              className="flex gap-1 items-center text-lightblue hover:underline"
             >
               Github <GitHubLogoIcon />
             </a>
           </div>
-          
         </header>
-        <div>
-        <h2 className="text-2xl text-zinc-200 font-semibold mt-8">
-            Front-end
-          </h2>
-          <div className="flex flex-wrap gap-4">
-            <CardProjects
-              title="Lorem"
-              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
-              id saepe tenetur."
-              image={imgLorem}
-              linkGit="https://github.com/"
-              linkSite="https://github.com"
-            />
-            <CardProjects
-              title="Lorem"
-              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
-              id saepe tenetur."
-              image={imgLorem}
-              linkGit="https://github.com/"
-              linkSite="https://github.com"
-            />
-            <CardProjects
-              title="Lorem"
-              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
-              id saepe tenetur."
-              image={imgLorem}
-              linkGit="https://github.com/"
-              linkSite="https://github.com"
-            />
+        
+          <div>
+            {FullStackProjects.length > 0 && (
+              <div>
+                <h2 className="text-2xl text-zinc-200 font-semibold mt-8 mb-3">
+                  FullStack
+                </h2>
+                <div className="grid grid-cols-4 gap-4">
+                  {FullStackProjects.map((project) => (
+                    <CardInfoProject
+                      key={project.id}
+                      description={project.description}
+                      img={project.img}
+                      name={project.name}
+                      onClick={() => console.log("clicou")}
+                      showLinks={true}
+                      linkGit={project?.linkGit}
+                      linkSite={project?.linkSite}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
-        </div>
-        <div>
-        <h2 className="text-2xl text-zinc-200 font-semibold mt-8">
-            Back-End
-          </h2>
-          <div className="flex flex-wrap  gap-4">
-            <CardProjects
-              title="Lorem"
-              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
-              id saepe tenetur."
-              image={imgLorem}
-              linkGit="https://github.com/"
-              linkSite="https://github.com"
-            />
-            <CardProjects
-              title="Lorem"
-              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
-              id saepe tenetur."
-              image={imgLorem}
-              linkGit="https://github.com/"
-              linkSite="https://github.com"
-            />
-            <CardProjects
-              title="Lorem"
-              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
-              id saepe tenetur."
-              image={imgLorem}
-              linkGit="https://github.com/"
-              linkSite="https://github.com"
-            />
+          {frontEndProjects.length > 0 && (
+            <div>
+              <h2 className="text-2xl text-zinc-200 font-semibold mt-8 mb-3">
+                Front-End
+              </h2>
+              <div className="grid grid-cols-4 gap-4">
+                {frontEndProjects.map((project) => (
+                  <CardInfoProject
+                    key={project.id}
+                    description={project.description}
+                    img={project.img}
+                    name={project.name}
+                    onClick={() => console.log("clicou")}
+                    showLinks={true}
+                    linkGit={project?.linkGit}
+                    linkSite={project?.linkSite}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+          <div>
+            {backEndProjects.length > 0 && (
+              <div>
+                <h2 className="text-2xl text-zinc-200 font-semibold mt-8 mb-3">
+                  Back-End
+                </h2>
+                <div className="grid grid-cols-4 gap-4">
+                  {backEndProjects.map((project) => (
+                    <CardInfoProject
+                      key={project.id}
+                      description={project.description}
+                      img={project.img}
+                      name={project.name}
+                      onClick={() => console.log("clicou")}
+                      showLinks={true}
+                      linkGit={project?.linkGit}
+                      linkSite={project?.linkSite}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+          <div>
+            {mobileProjects.length > 0 && (
+              <div>
+                <h2 className="text-2xl text-zinc-200 font-semibold mt-8 mb-3">
+                  Mobile
+                </h2>
+                <div className="grid grid-cols-4 gap-4">
+                  {mobileProjects.map((project) => (
+                    <CardInfoProject
+                      key={project.id}
+                      description={project.description}
+                      img={project.img}
+                      name={project.name}
+                      onClick={() => console.log("clicou")}
+                      showLinks={true}
+                      linkGit={project?.linkGit}
+                      linkSite={project?.linkSite}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
 
-          </div>
         </div>
+        
       </main>
     </div>
   );
