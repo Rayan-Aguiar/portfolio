@@ -43,7 +43,7 @@ export const DialogProjectComponent: React.FC<DialogProjectComponentProps> = ({
           </div>
           <div className="flex gap-2 items-center">
             {linkGitHub && (
-              <div className="p-2 bg-darkblue2 rounded-lg hover:bg-lightblue duration-150 cursor-pointer">
+              <div className="p-2 border border-lightblue rounded-lg hover:bg-lightblue/75 duration-150 cursor-pointer">
                 <a
                   href={
                     linkGitHub.startsWith("http")
@@ -58,7 +58,7 @@ export const DialogProjectComponent: React.FC<DialogProjectComponentProps> = ({
               </div>
             )}
             {linkSite && (
-              <div className="p-2 bg-darkblue2 rounded-lg hover:bg-lightblue duration-150 cursor-pointer">
+              <div className="p-2 border border-lightblue rounded-lg hover:bg-lightblue/75 duration-150 cursor-pointer">
                 <a
                   href={
                     linkSite.startsWith("http")
