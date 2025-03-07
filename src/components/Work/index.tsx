@@ -1,6 +1,6 @@
 import { ChevronRight } from "lucide-react";
 import { FcBriefcase } from "react-icons/fc";
-import { WorkExperienceitems } from "../WorkExperience";
+import { WorkExperienceitems } from "../WorkExperienceitems";
 
 import G1learn from "../../assets/img/G1learn.jpeg";
 import Unisuam from "../../assets/img/unisuam.png";
