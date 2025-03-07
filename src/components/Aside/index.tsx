@@ -20,10 +20,12 @@ export default function AsideContent() {
       <div className="mt-4">
         <span className="font-semibold text-zinc-500 text-sm">Eu</span>
         <ul className="mt-2">
-          <li className="flex gap-2 items-center hover:bg-white/10 p-2 w-full rounded-md duration-75 cursor-pointer text-sm">
-            <BookOpen className="text-lightblue w-4 h-4" />
-            Sobre mim
-          </li>
+          <Link to='/aboutme'>
+            <li className="flex gap-2 items-center hover:bg-white/10 p-2 w-full rounded-md duration-75 cursor-pointer text-sm">
+              <BookOpen className="text-lightblue w-4 h-4" />
+              Sobre mim
+            </li>
+          </Link>
           <Link to="/projects">
             <li className="flex gap-2 items-center hover:bg-white/10 p-2 w-full rounded-md duration-75 cursor-pointer text-sm">
             <FolderOpenDot className="text-lightblue w-4 h-4" />
