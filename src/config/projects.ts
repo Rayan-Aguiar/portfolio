@@ -6,7 +6,8 @@ export interface ProjectListProps {
   img: string;
   linkGit?: string;
   linkSite?: string;
-  type: "App Web" | "Mobile" | "Full Stack" | "Backend";
+  type: "Front-End" | "Mobile" | "Full-Stack" | "Back-End";
+  featured: boolean
 }
 
 export const ProjectList: ProjectListProps[] = [
@@ -17,9 +18,10 @@ export const ProjectList: ProjectListProps[] = [
     descriptionFull:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc eget posuere ultricies, ligula est consectetur velit, at lobortis metus lectus eu lectus. Sed condimentum, purus vitae elementum varius, neque velit facilisis neque, et consectetur purus libero id justo. Donec in libero vel turpis convallis vulputate. Sed non risus in neque tristique vulputate. Nulla facilisi. Pellentesque",
     img: "https://cdn.sanity.io/images/v6oximkk/production/21d23aacc75f36df01310f8782e8102a0882276f-1600x900.jpg?w=1600&h=900&auto=format",
-    type: "App Web",
+    type: "Front-End",
     linkGit: "https://github.com/",
     linkSite: "https://google.com",
+    featured: true,
   },
   {
     id: 2,
@@ -28,9 +30,10 @@ export const ProjectList: ProjectListProps[] = [
     descriptionFull:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc eget posuere ultricies, ligula est consectetur velit, at lobortis metus lectus eu lectus. Sed condimentum, purus vitae elementum varius, neque velit facilisis neque, et consectetur purus libero id justo. Donec in libero vel turpis convallis vulputate. Sed non risus in neque tristique vulputate. Nulla facilisi. Pellentesque",
     img: "https://cdn.sanity.io/images/v6oximkk/production/21d23aacc75f36df01310f8782e8102a0882276f-1600x900.jpg?w=1600&h=900&auto=format",
-    type: "App Web",
+    type: "Mobile",
     linkGit: "https://github.com/",
     linkSite: "https://google.com",
+    featured: true,
   },
   {
     id: 3,
@@ -39,9 +42,10 @@ export const ProjectList: ProjectListProps[] = [
     descriptionFull:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc eget posuere ultricies, ligula est consectetur velit, at lobortis metus lectus eu lectus. Sed condimentum, purus vitae elementum varius, neque velit facilisis neque, et consectetur purus libero id justo. Donec in libero vel turpis convallis vulputate. Sed non risus in neque tristique vulputate. Nulla facilisi. Pellentesque",
     img: "https://cdn.sanity.io/images/v6oximkk/production/21d23aacc75f36df01310f8782e8102a0882276f-1600x900.jpg?w=1600&h=900&auto=format",
-    type: "App Web",
+    type: "Front-End",
     linkGit: "https://github.com/",
     linkSite: "https://google.com",
+    featured: true,
   },
   {
     id: 4,
@@ -50,9 +54,10 @@ export const ProjectList: ProjectListProps[] = [
     descriptionFull:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc eget posuere ultricies, ligula est consectetur velit, at lobortis metus lectus eu lectus. Sed condimentum, purus vitae elementum varius, neque velit facilisis neque, et consectetur purus libero id justo. Donec in libero vel turpis convallis vulputate. Sed non risus in neque tristique vulputate. Nulla facilisi. Pellentesque",
     img: "https://cdn.sanity.io/images/v6oximkk/production/21d23aacc75f36df01310f8782e8102a0882276f-1600x900.jpg?w=1600&h=900&auto=format",
-    type: "App Web",
+    type: "Front-End",
     linkGit: "https://github.com/",
     linkSite: "https://google.com",
+    featured: true,
   },
   {
     id: 5,
@@ -61,8 +66,9 @@ export const ProjectList: ProjectListProps[] = [
     descriptionFull:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc eget posuere ultricies, ligula est consectetur velit, at lobortis metus lectus eu lectus. Sed condimentum, purus vitae elementum varius, neque velit facilisis neque, et consectetur purus libero id justo. Donec in libero vel turpis convallis vulputate. Sed non risus in neque tristique vulputate. Nulla facilisi. Pellentesque",
     img: "https://cdn.sanity.io/images/v6oximkk/production/21d23aacc75f36df01310f8782e8102a0882276f-1600x900.jpg?w=1600&h=900&auto=format",
-    type: "App Web",
+    type: "Back-End",
     linkGit: "https://github.com/",
     linkSite: "https://google.com",
+    featured: false,
   },
 ];

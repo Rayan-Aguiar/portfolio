@@ -12,7 +12,7 @@ interface DialogProjectComponentProps {
   img: string;
   name: string;
   description: string;
-  type: "App Web" | "Mobile" | "Full Stack" | "Backend";
+  type: "Front-End" | "Mobile" | "Full-Stack" | "Back-End";
   linkGitHub?: string;
   linkSite?: string;
 }
