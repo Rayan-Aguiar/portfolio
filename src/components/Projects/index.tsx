@@ -15,7 +15,7 @@ export default function Projects() {
   const featuredProjects = ProjectList.filter((project) => project.featured);
 
   return (
-    <div className="w-4/5 h-fit border border-white/20 rounded-lg mt-6 p-8 text-white">
+    <div className="w-full h-fit border border-white/20 rounded-lg mt-6 p-8 text-white">
       <div className="flex items-center justify-between">
         <h2 className="flex gap-2 items-center text-xl font-semibold">
           <FcFolder />

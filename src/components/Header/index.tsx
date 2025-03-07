@@ -6,7 +6,7 @@ const stacks = ["React JS", 'React Native', "NextJS", "Node Js", "TypeScript", "
 
 export default function Header() {
   return (
-    <div className="flex w-4/5 h-fit gap-8 items-center">
+    <div className="flex w-full h-fit gap-8 items-center">
       <div>
         {" "}
         <img src={Rayan} alt="Minha foto" className="w-32 h-32 rounded-3xl" />
