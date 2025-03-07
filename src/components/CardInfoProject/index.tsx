@@ -23,7 +23,9 @@ export const CardInfoProject: React.FC<CardInfoProjectProps> = ({
 }) => {
   return (
     <Card
-      className="w-72 min-h-96 overflow-hidden bg-transparent border-2 group cursor-pointer border-slate-800 hover:border-slate-300 duration-300"
+      className={`w-72 min-h-96 overflow-hidden bg-transparent border-2 group border-slate-800 hover:border-slate-300 duration-300 ${
+        showLinks ? "cursor-zoom-in" : "cursor-pointer"
+      }`}
       onClick={onClick}
     >
       <img
@@ -46,7 +48,9 @@ export const CardInfoProject: React.FC<CardInfoProjectProps> = ({
             {linkGit && (
               <div className="p-2 border border-lightblue hover:bg-lightblue duration-150 rounded-lg">
                 <a
-                  href={ linkGit.startsWith("http") ? linkGit : `https://${linkGit}` }
+                  href={
+                    linkGit.startsWith("http") ? linkGit : `https://${linkGit}`
+                  }
                   target="__blank"
                   className="flex items-center gap-2"
                   onClick={(e) => e.stopPropagation()}
@@ -59,7 +63,11 @@ export const CardInfoProject: React.FC<CardInfoProjectProps> = ({
             {linkSite && (
               <div className="p-2 border border-lightblue hover:bg-lightblue duration-150 rounded-lg">
                 <a
-                  href={ linkSite.startsWith("http") ? linkSite : `https://${linkSite}` }
+                  href={
+                    linkSite.startsWith("http")
+                      ? linkSite
+                      : `https://${linkSite}`
+                  }
                   target="__blank"
                   className="flex items-center gap-2"
                   onClick={(e) => e.stopPropagation()}

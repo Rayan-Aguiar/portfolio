@@ -8,6 +8,7 @@ export interface ProjectListProps {
   linkSite?: string;
   type: "Front-End" | "Mobile" | "Full-Stack" | "Back-End";
   featured: boolean
+  images: string[];
 }
 
 export const ProjectList: ProjectListProps[] = [
@@ -22,6 +23,10 @@ export const ProjectList: ProjectListProps[] = [
     linkGit: "https://github.com/",
     linkSite: "https://google.com",
     featured: true,
+    images: [
+      "https://cdn.sanity.io/images/v6oximkk/production/21d23aacc75f36df01310f8782e8102a0882276f-1600x900.jpg?w=1600&h=900&auto=format",
+      "https://blog.eqseed.com/wp-content/uploads/2022/04/MicrosoftTeams-image-23.jpg"
+    ]
   },
   {
     id: 2,
@@ -34,6 +39,10 @@ export const ProjectList: ProjectListProps[] = [
     linkGit: "https://github.com/",
     linkSite: "https://google.com",
     featured: true,
+    images: [
+      "https://cdn.sanity.io/images/v6oximkk/production/21d23aacc75f36df01310f8782e8102a0882276f-1600x900.jpg?w=1600&h=900&auto=format",
+      "https://blog.eqseed.com/wp-content/uploads/2022/04/MicrosoftTeams-image-23.jpg"
+    ]
   },
   {
     id: 3,
@@ -46,6 +55,10 @@ export const ProjectList: ProjectListProps[] = [
     linkGit: "https://github.com/",
     linkSite: "https://google.com",
     featured: true,
+    images: [
+      "https://cdn.sanity.io/images/v6oximkk/production/21d23aacc75f36df01310f8782e8102a0882276f-1600x900.jpg?w=1600&h=900&auto=format",
+      "https://blog.eqseed.com/wp-content/uploads/2022/04/MicrosoftTeams-image-23.jpg"
+    ]
   },
   {
     id: 4,
@@ -58,6 +71,10 @@ export const ProjectList: ProjectListProps[] = [
     linkGit: "https://github.com/",
     linkSite: "https://google.com",
     featured: true,
+    images: [
+      "https://cdn.sanity.io/images/v6oximkk/production/21d23aacc75f36df01310f8782e8102a0882276f-1600x900.jpg?w=1600&h=900&auto=format",
+      "https://blog.eqseed.com/wp-content/uploads/2022/04/MicrosoftTeams-image-23.jpg"
+    ]
   },
   {
     id: 5,
@@ -70,5 +87,9 @@ export const ProjectList: ProjectListProps[] = [
     linkGit: "https://github.com/",
     linkSite: "https://google.com",
     featured: false,
+    images: [
+      "https://cdn.sanity.io/images/v6oximkk/production/21d23aacc75f36df01310f8782e8102a0882276f-1600x900.jpg?w=1600&h=900&auto=format",
+      "https://blog.eqseed.com/wp-content/uploads/2022/04/MicrosoftTeams-image-23.jpg"
+    ]
   },
 ];

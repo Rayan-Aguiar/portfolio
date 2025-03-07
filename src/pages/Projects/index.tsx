@@ -1,10 +1,26 @@
 import AsideContent from "@/components/Aside";
 import { CardInfoProject } from "@/components/CardInfoProject";
+import { ProjectModal } from "@/components/ProjectModal";
 
-import { ProjectList } from "@/config/projects";
+import { ProjectList, ProjectListProps } from "@/config/projects";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { useState } from "react";
 
 export default function Projects() {
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentProject, setCurrentProject] = useState<ProjectListProps | null>(null); 
+
+  const handleOpenModal = (project: ProjectListProps) => {
+    setCurrentProject(project);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+
   const frontEndProjects = ProjectList.filter(
     (project) => project.type === "Front-End"
   );
@@ -57,7 +73,7 @@ export default function Projects() {
                       description={project.description}
                       img={project.img}
                       name={project.name}
-                      onClick={() => console.log("clicou")}
+                      onClick={() => handleOpenModal(project)}
                       showLinks={true}
                       linkGit={project?.linkGit}
                       linkSite={project?.linkSite}
@@ -79,7 +95,7 @@ export default function Projects() {
                     description={project.description}
                     img={project.img}
                     name={project.name}
-                    onClick={() => console.log("clicou")}
+                    onClick={() => handleOpenModal(project)}
                     showLinks={true}
                     linkGit={project?.linkGit}
                     linkSite={project?.linkSite}
@@ -101,7 +117,7 @@ export default function Projects() {
                       description={project.description}
                       img={project.img}
                       name={project.name}
-                      onClick={() => console.log("clicou")}
+                      onClick={() => handleOpenModal(project)}
                       showLinks={true}
                       linkGit={project?.linkGit}
                       linkSite={project?.linkSite}
@@ -124,7 +140,7 @@ export default function Projects() {
                       description={project.description}
                       img={project.img}
                       name={project.name}
-                      onClick={() => console.log("clicou")}
+                      onClick={() => handleOpenModal(project)}
                       showLinks={true}
                       linkGit={project?.linkGit}
                       linkSite={project?.linkSite}
@@ -136,6 +152,15 @@ export default function Projects() {
           </div>
 
         </div>
+        {currentProject && (
+          <ProjectModal
+            name={currentProject.name}
+            images={currentProject.images} 
+            description={currentProject.description}
+            open={isModalOpen}
+            onClose={handleCloseModal} 
+          />
+        )}
         
       </main>
     </div>
