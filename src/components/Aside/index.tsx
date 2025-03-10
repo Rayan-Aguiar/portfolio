@@ -10,7 +10,7 @@ import { Link, useLocation } from "react-router-dom";
 
 export default function AsideContent() {
   const location = useLocation();
-  const isActive = (path: string) => location.pathname === path ? 'bg-lightblue/20' : 'hover:bg-white/10'
+  const isActive = (path: string) => location.pathname === path ? 'bg-lightblue/20' : 'hover:bg-lightblue/20'
   return (
     <>
       <Link to="/">
