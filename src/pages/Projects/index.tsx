@@ -7,9 +7,7 @@ import { useState } from "react";
 
 export default function Projects() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentProject, setCurrentProject] = useState<ProjectListProps | null>(
-    null
-  );
+  const [currentProject, setCurrentProject] = useState<ProjectListProps | null>(null);
 
   const handleOpenModal = (project: ProjectListProps) => {
     setCurrentProject(project);
@@ -20,25 +18,44 @@ export default function Projects() {
     setIsModalOpen(false);
   };
 
-  const frontEndProjects = ProjectList.filter(
-    (project) => project.type === "Front-End"
-  );
-  const backEndProjects = ProjectList.filter(
-    (project) => project.type === "Back-End"
-  );
-  const mobileProjects = ProjectList.filter(
-    (project) => project.type === "Mobile"
-  );
-  const FullStackProjects = ProjectList.filter(
-    (project) => project.type === "Full-Stack"
+  const projectsByType = ProjectList.reduce((acc, project) => {
+    if (!acc[project.type]) {
+      acc[project.type] = [];
+    }
+    acc[project.type].push(project);
+    return acc;
+  }, {} as Record<string, ProjectListProps[]>);
+
+  const renderProjectSection = (type: string, projects: ProjectListProps[]) => (
+    <>
+      {projects.length > 0 && (
+        <div>
+          <h2 className="text-2xl text-zinc-200 font-semibold mt-8 mb-3 flex justify-center md:justify-start">{type}</h2>
+          <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+            {projects.map((project) => (
+              <CardInfoProject
+                key={project.id}
+                description={project.description}
+                img={project.img}
+                name={project.name}
+                onClick={() => handleOpenModal(project)}
+                showLinks={true}
+                linkGit={project?.linkGit}
+                linkSite={project?.linkSite}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+    </>
   );
 
   return (
-    <main className=" text-white w-full">
-      <div className="">
+    <main className="text-white w-full">
+      <div>
         <header className="flex flex-col">
           <h1 className="text-4xl font-bold">Meus Projetos</h1>
-          <div className="text-zinc-500 flex gap-2">
+          <div className="text-zinc-500 flex gap-2 flex-wrap">
             <span>
               Aqui estão alguns de meus projetos que desenvolvi, você pode
               encontra mais em meu
@@ -53,98 +70,11 @@ export default function Projects() {
             </a>
           </div>
         </header>
-
-        <div>
-          {FullStackProjects.length > 0 && (
-            <div>
-              <h2 className="text-2xl text-zinc-200 font-semibold mt-8 mb-3">
-                FullStack
-              </h2>
-              <div className="grid grid-cols-4 gap-4">
-                {FullStackProjects.map((project) => (
-                  <CardInfoProject
-                    key={project.id}
-                    description={project.description}
-                    img={project.img}
-                    name={project.name}
-                    onClick={() => handleOpenModal(project)}
-                    showLinks={true}
-                    linkGit={project?.linkGit}
-                    linkSite={project?.linkSite}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-        {frontEndProjects.length > 0 && (
-          <div>
-            <h2 className="text-2xl text-zinc-200 font-semibold mt-8 mb-3">
-              Front-End
-            </h2>
-            <div className="grid grid-cols-4 gap-4">
-              {frontEndProjects.map((project) => (
-                <CardInfoProject
-                  key={project.id}
-                  description={project.description}
-                  img={project.img}
-                  name={project.name}
-                  onClick={() => handleOpenModal(project)}
-                  showLinks={true}
-                  linkGit={project?.linkGit}
-                  linkSite={project?.linkSite}
-                />
-              ))}
-            </div>
-          </div>
+        {Object.entries(projectsByType).map(([type, projects]) => 
+          renderProjectSection(type, projects)
         )}
-        <div>
-          {backEndProjects.length > 0 && (
-            <div>
-              <h2 className="text-2xl text-zinc-200 font-semibold mt-8 mb-3">
-                Back-End
-              </h2>
-              <div className="grid grid-cols-4 gap-4">
-                {backEndProjects.map((project) => (
-                  <CardInfoProject
-                    key={project.id}
-                    description={project.description}
-                    img={project.img}
-                    name={project.name}
-                    onClick={() => handleOpenModal(project)}
-                    showLinks={true}
-                    linkGit={project?.linkGit}
-                    linkSite={project?.linkSite}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-        <div>
-          {mobileProjects.length > 0 && (
-            <div>
-              <h2 className="text-2xl text-zinc-200 font-semibold mt-8 mb-3">
-                Mobile
-              </h2>
-              <div className="grid grid-cols-4 gap-4">
-                {mobileProjects.map((project) => (
-                  <CardInfoProject
-                    key={project.id}
-                    description={project.description}
-                    img={project.img}
-                    name={project.name}
-                    onClick={() => handleOpenModal(project)}
-                    showLinks={true}
-                    linkGit={project?.linkGit}
-                    linkSite={project?.linkSite}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
       </div>
+
       {currentProject && (
         <ProjectModal
           name={currentProject.name}

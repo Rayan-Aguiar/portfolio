@@ -1,13 +1,45 @@
+import { useState } from "react";
 import AsideContent from "@/components/Aside";
 import { Outlet } from "react-router-dom";
+import { Menu, X } from "lucide-react";
 
 export function Layout() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <div className="min-h-screen w-full flex">
-      <aside className="w-1/5 h-screen bg-darkblue sticky top-0 left-0 overflow-y-auto border-r-white/20 border-r p-6 text-white">
+    <div className="min-h-screen w-full flex relative">
+      {!isOpen && (
+        <div className="w-full h-20 fixed lg:hidden bg-[#020817] z-50">
+          <button
+            className="lg:hidden fixed top-4 left-4 bg-darkblue p-2 rounded-md"
+            onClick={() => setIsOpen(true)}
+          >
+            <Menu className="text-white w-6 h-6" />
+          </button>
+        </div>
+      )}
+      <aside
+        className={`fixed lg:relative top-0 left-0 w-64 bg-darkblue transition-transform duration-300 h-screen border-r border-white/20 p-6 text-white z-50 ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        } lg:translate-x-0 lg:z-auto lg:sticky lg:top-0`}
+      >
+        <button
+          className="lg:hidden absolute top-4 right-4"
+          onClick={() => setIsOpen(false)}
+        >
+          <X className="text-white w-6 h-6" />
+        </button>
+
         <AsideContent />
       </aside>
-      <div className="w-4/5 min:h-screen h-fit overflow-y-auto flex flex-col justify-center py-8 px-48 text-white">
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 lg:hidden z-40"
+          onClick={() => setIsOpen(false)}
+        ></div>
+      )}
+
+      <div className="w-full lg:w-4/5 min-h-screen overflow-y-auto flex flex-col justify-start py-24 px-6 lg:p-20 text-white">
         <Outlet />
       </div>
     </div>

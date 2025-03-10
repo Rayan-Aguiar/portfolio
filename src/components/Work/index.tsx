@@ -9,7 +9,7 @@ import M2 from "../../assets/img/m2.jpg";
 export default function WorkExperience() {
   return (
     <div className="w-full h-fit border border-white/20 rounded-lg mt-6 p-8 text-white">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-wrap">
         <h2 className="flex gap-2 items-center text-xl font-semibold">
           <FcBriefcase />
           Experiências
@@ -25,11 +25,11 @@ export default function WorkExperience() {
         </a>
       </div>
 
-      <div className="grid grid-cols-3 mt-4 items-center gap-6">
+      <div className="lg:grid lg:grid-cols-3 mt-4 items-center gap-6 flex flex-wrap">
         <WorkExperienceitems
           avatar={M2}
           description="Desenvolvedor Mobile"
-          duration="Atualmente"
+          duration="2024 - Atualmente"
           tittle="M2Flex"
         />
         <WorkExperienceitems

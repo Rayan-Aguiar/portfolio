@@ -1,13 +1,17 @@
 import Techs from "@/components/Techs";
-import { Techs as techs } from "../../config/techs";
-import { techsBack } from "@/config/techsBack";
-import { techsControls } from "@/config/techsControls";
-import { techsApp } from "@/config/techsApp";
-import { techsDesigner } from "@/config/techsDesigners";
-import { techsInfra } from "@/config/techsInfra";
-import { techsBD } from "@/config/techsBD";
+import { TechProps, tech } from "../../config/techs";
 
 export default function Technologies() {
+  const categories = [
+    "Front-end",
+    "Back-end",
+    "Controle de Versão",
+    "Infra",
+    "Design",
+    "Banco de Dados",
+    "Apps",
+  ];
+
   return (
     <main className="text-white">
       <header className="w-4/5">
@@ -19,101 +23,26 @@ export default function Technologies() {
           priorizando sempre a experiência do usuário.
         </p>
       </header>
-      <div className="w-4/5 ">
-        <div>
-          <h2 className="font-bold text-2xl mt-8">Front-End</h2>
-          <div className="mt-2 flex flex-wrap w-fit gap-2">
-            {techs.map((tech, index) => (
-              <div key={index}>
-                <Techs title={tech.title} image={tech.image} link={tech.link} />
+
+      <div className="lg:w-4/5 w-full">
+        {categories.map((category) => {
+          const filteredTechs = tech.filter((t: TechProps) => t.category === category);
+          console.log(filteredTechs)
+          return (
+            <div key={category}>
+              <h2 className="font-bold text-2xl mt-8">{category}</h2>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {filteredTechs.map((t: TechProps, index: number) => {
+                  return (
+                    <div key={index} className="w-full md:w-fit">
+                      <Techs title={t.title} image={t.image} link={t.link} />
+                    </div>
+                  );
+                })}
               </div>
-            ))}
-          </div>
-        </div>
-        <div>
-          <h2 className="font-bold text-2xl mt-8">Back-End</h2>
-          <div className="mt-2 flex flex-wrap w-fit gap-2">
-            {techsBack.map((techBack, index) => (
-              <div key={index}>
-                <Techs
-                  title={techBack.title}
-                  image={techBack.image}
-                  link={techBack.link}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-        <div>
-          <h2 className="font-bold text-2xl mt-8">Controle de versões</h2>
-          <div className="mt-2 flex flex-wrap w-fit gap-2">
-            {techsControls.map((techControls, index) => (
-              <div key={index}>
-                <Techs
-                  title={techControls.title}
-                  image={techControls.image}
-                  link={techControls.link}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-        <div>
-          <h2 className="font-bold text-2xl mt-8">Infraestrutura</h2>
-          <div className="mt-2 flex flex-wrap w-fit gap-2">
-            {techsInfra.map((techInfra, index) => (
-              <div key={index}>
-                <Techs
-                  title={techInfra.title}
-                  image={techInfra.image}
-                  link={techInfra.link}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-        <div>
-          <h2 className="font-bold text-2xl mt-8">Designer</h2>
-          <div className="mt-2 flex flex-wrap w-fit gap-2">
-            {techsDesigner.map((techDesigner, index) => (
-              <div key={index}>
-                <Techs
-                  title={techDesigner.title}
-                  image={techDesigner.image}
-                  link={techDesigner.link}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-        <div>
-          <h2 className="font-bold text-2xl mt-8">Banco de dados</h2>
-          <div className="mt-2 flex flex-wrap w-fit gap-2">
-            {techsBD.map((techBD, index) => (
-              <div key={index}>
-                <Techs
-                  title={techBD.title}
-                  image={techBD.image}
-                  link={techBD.link}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-        <div>
-          <h2 className="font-bold text-2xl mt-8">Aplicativos</h2>
-          <div className="mt-2 flex flex-wrap w-fit gap-2">
-            {techsApp.map((techApp, index) => (
-              <div key={index}>
-                <Techs
-                  title={techApp.title}
-                  image={techApp.image}
-                  link={techApp.link}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
+            </div>
+          );
+        })}
       </div>
     </main>
   );

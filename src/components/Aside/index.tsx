@@ -20,7 +20,7 @@ export default function AsideContent() {
       <div className="mt-4">
         <span className="font-semibold text-zinc-500 text-sm">Eu</span>
         <ul className="mt-2">
-          <Link to='/aboutme'>
+          <Link to="/aboutme">
             <li className="flex gap-2 items-center hover:bg-white/10 p-2 w-full rounded-md duration-75 cursor-pointer text-sm">
               <BookOpen className="text-lightblue w-4 h-4" />
               Sobre mim
@@ -28,10 +28,9 @@ export default function AsideContent() {
           </Link>
           <Link to="/projects">
             <li className="flex gap-2 items-center hover:bg-white/10 p-2 w-full rounded-md duration-75 cursor-pointer text-sm">
-            <FolderOpenDot className="text-lightblue w-4 h-4" />
-            Projetos
+              <FolderOpenDot className="text-lightblue w-4 h-4" />
+              Projetos
             </li>
-
           </Link>
           <Link to="/technologies">
             <li className="flex gap-2 items-center hover:bg-white/10 p-2 w-full rounded-md duration-75 cursor-pointer text-sm">
@@ -47,7 +46,11 @@ export default function AsideContent() {
           Redes Sociais
         </span>
         <ul className="mt-2">
-          <a href="https://github.com/Rayan-Aguiar" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://github.com/Rayan-Aguiar"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <li className="flex gap-2 items-center justify-between hover:bg-white/10 p-2 w-full rounded-md duration-75 cursor-pointer text-sm">
               <div className="flex gap-2 items-center">
                 <GitHubLogoIcon className="text-lightblue w-4 h-4" />
@@ -58,7 +61,11 @@ export default function AsideContent() {
               </div>
             </li>
           </a>
-          <a href="https://www.linkedin.com/in/rayan-siqueira/" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://www.linkedin.com/in/rayan-siqueira/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <li className="flex gap-2 items-center justify-between hover:bg-white/10 p-2 w-full rounded-md duration-75 cursor-pointer text-sm">
               <div className="flex gap-2 items-center">
                 <LinkedInLogoIcon className="text-lightblue w-4 h-4" />

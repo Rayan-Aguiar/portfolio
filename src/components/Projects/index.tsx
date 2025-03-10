@@ -16,7 +16,7 @@ export default function Projects() {
 
   return (
     <div className="w-full h-fit border border-white/20 rounded-lg mt-6 p-8 text-white">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-wrap">
         <h2 className="flex gap-2 items-center text-xl font-semibold">
           <FcFolder />
           Principais Projetos
@@ -27,7 +27,7 @@ export default function Projects() {
           </span>
         </Link>
       </div>
-      <div className="mt-8 flex gap-6 flex-wrap">
+      <div className="mt-8 flex gap-6 flex-wrap justify-center lg:justify-start">
         {featuredProjects.map((project) => (
           <CardInfoProject
             key={project.id}
