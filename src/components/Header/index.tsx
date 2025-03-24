@@ -35,7 +35,7 @@ export default function Header() {
           </h2>
           <div className="flex flex-wrap gap-4 mt-2">
             {stacks.map((stack, index) => (
-              <FadeIn to="top" duration={0.5} delay={index * 0.2}>
+              <FadeIn to="top" duration={0.5} delay={index * 0.2} key={index}>
                 <Bagde key={index} title={stack} />
               </FadeIn>
             ))}
