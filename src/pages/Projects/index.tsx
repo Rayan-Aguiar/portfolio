@@ -60,7 +60,7 @@ export default function Projects() {
   );
 
   return (
-    <main className="text-white outline w-full mx-auto ">
+    <main className="text-white w-full mx-auto ">
       <div className="w-full">
         <header className="flex flex-col w-full">
           <h1 className="text-4xl font-bold">Meus Projetos</h1>

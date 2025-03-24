@@ -27,7 +27,7 @@ export default function WorkExperience() {
 
   return (
     <>
-      <section className="flex w-full gap-6">
+      <section className="flex w-full gap-0 md:gap-6 flex-col md:flex-row">
         <article className="w-full min-h-44 border border-white/20 rounded-lg mt-6 p-8 text-white flex-1">
           <FadeIn to="left" delay={0.2} duration={0.5} startOnScrollIntersect>
             <header className="flex items-center justify-between flex-wrap">
