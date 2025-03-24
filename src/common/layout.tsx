@@ -39,8 +39,11 @@ export function Layout() {
         ></div>
       )}
 
-      <div className="w-full lg:w-4/5 min-h-screen overflow-y-auto flex flex-col justify-start py-24 px-6 lg:p-20 text-white">
+      <div className="flex flex-1 justify-center w-full  lg:w-4/5 min-h-screen overflow-y-auto py-24 px-6 lg:p-20 text-white">
+      <div className="max-w-[1400px]">
         <Outlet />
+
+      </div>
       </div>
     </div>
   );
