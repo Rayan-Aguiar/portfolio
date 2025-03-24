@@ -17,8 +17,8 @@ export const WorkExperienceitems = ({
 }: WorkExperienceProps) => {
   return (
     <div className="flex gap-4">
-      <Avatar>
-        <AvatarImage src={avatar} />
+      <Avatar className="border border-white/20 ">
+        <AvatarImage src={avatar}  className="object-contain"/>
         <AvatarFallback>{title}</AvatarFallback>
       </Avatar>
       <div className="flex flex-col">
