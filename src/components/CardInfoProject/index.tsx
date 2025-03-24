@@ -23,7 +23,7 @@ export const CardInfoProject: React.FC<CardInfoProjectProps> = ({
 }) => {
   return (
     <Card
-      className={`w-72 min-h-96 overflow-hidden bg-transparent border-2 group border-slate-800 hover:border-slate-300 duration-300 ${
+      className={`max-w-[315px] min-h-96 overflow-hidden bg-transparent border-2 group border-slate-800 hover:border-slate-300 duration-300 ${
         showLinks ? "cursor-zoom-in" : "cursor-pointer"
       }`}
       onClick={onClick}
