@@ -30,7 +30,7 @@ export default function Projects() {
   const renderProjectSection = (type: string, projects: ProjectListProps[]) => (
     <>
       {projects.length > 0 && (
-        <div>
+        <div className="w-full">
           <h2 className="text-2xl text-zinc-200 font-semibold mt-8 mb-3 flex justify-center md:justify-start">{type}</h2>
           <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
             {projects.map((project, index) => (
@@ -60,9 +60,9 @@ export default function Projects() {
   );
 
   return (
-    <main className="text-white w-full">
-      <div>
-        <header className="flex flex-col">
+    <main className="text-white outline w-full mx-auto ">
+      <div className="w-full">
+        <header className="flex flex-col w-full">
           <h1 className="text-4xl font-bold">Meus Projetos</h1>
           <div className="text-zinc-500 flex gap-2 flex-wrap">
             <span>
@@ -85,8 +85,6 @@ export default function Projects() {
       </div>
 
       {currentProject && (
-        <FadeIn to="right" delay={0.2} duration={0.5} startOnScrollIntersect>
-
           <ProjectModal
             name={currentProject.name}
             images={currentProject.images}
@@ -94,7 +92,6 @@ export default function Projects() {
             open={isModalOpen}
             onClose={handleCloseModal}
           />
-        </FadeIn>
       )}
     </main>
   );
