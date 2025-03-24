@@ -60,8 +60,13 @@ export default function WorkExperience() {
               ))}
             </ul>
           </FadeIn>
-          <Button className="w-full bg-lightblue hover:bg-lightblue/80 duration-150 mt-8">
-            Baixar meu currículo <Download size={18} />
+          <Button
+            className="w-full bg-lightblue hover:bg-lightblue/80 duration-150 mt-8"
+            asChild
+          >
+            <a href="/docs/curriculo-fullstack-rayan.pdf" download>
+              Baixar meu currículo <Download size={18} />
+            </a>
           </Button>
         </article>
 
