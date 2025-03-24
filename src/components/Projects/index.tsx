@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { CardInfoProject } from "../CardInfoProject";
 import { DialogProjectComponent } from "../DialogProject";
-import { ProjectList, ProjectListProps } from "@/config/projects";
+import { ProjectList, ProjectListProps } from "@/constants/projects";
+import { FadeIn } from "../animation/FadeIn";
 
 export default function Projects() {
   const [selectedProject, setSelectedProject] =
@@ -28,14 +29,22 @@ export default function Projects() {
         </Link>
       </div>
       <div className="mt-8 flex gap-6 flex-wrap justify-center lg:justify-start">
-        {featuredProjects.map((project) => (
-          <CardInfoProject
+        {featuredProjects.map((project, index) => (
+          <FadeIn
             key={project.id}
-            onClick={() => openProjectDialog(project)}
-            img={project.img}
-            name={project.name}
-            description={project.description}
-          />
+            to="bottom"
+            delay={index * 0.3}
+            duration={0.5}
+            startOnScrollIntersect
+          >
+            <CardInfoProject
+              key={project.id}
+              onClick={() => openProjectDialog(project)}
+              img={project.img}
+              name={project.name}
+              description={project.description}
+            />
+          </FadeIn>
         ))}
       </div>
 

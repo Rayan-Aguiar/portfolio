@@ -1,5 +1,6 @@
 import Techs from "@/components/Techs";
-import { TechProps, tech } from "../../config/techs";
+import { TechProps, tech } from "../../constants/techs";
+import { FadeIn } from "@/components/animation/FadeIn";
 
 export default function Technologies() {
   const categories = [
@@ -26,19 +27,35 @@ export default function Technologies() {
 
       <div className="lg:w-4/5 w-full">
         {categories.map((category) => {
-          const filteredTechs = tech.filter((t: TechProps) => t.category === category);
-          console.log(filteredTechs)
+          const filteredTechs = tech.filter(
+            (t: TechProps) => t.category === category
+          );
+
           return (
             <div key={category}>
-              <h2 className="font-bold text-2xl mt-8">{category}</h2>
+              <FadeIn
+                to="left"
+                delay={0.2}
+                duration={0.5}
+                startOnScrollIntersect
+              >
+                <h2 className="font-bold text-2xl mt-8">{category}</h2>
+              </FadeIn>
+
               <div className="mt-2 flex flex-wrap gap-2">
-                {filteredTechs.map((t: TechProps, index: number) => {
-                  return (
-                    <div key={index} className="w-full md:w-fit">
+                {filteredTechs.map((t: TechProps, index: number) => (
+                  <FadeIn
+                    key={index}
+                    to="bottom"
+                    delay={index * 0.2}
+                    duration={0.5}
+                    startOnScrollIntersect
+                  >
+                    <div className="w-full md:w-fit">
                       <Techs title={t.title} image={t.image} link={t.link} />
                     </div>
-                  );
-                })}
+                  </FadeIn>
+                ))}
               </div>
             </div>
           );

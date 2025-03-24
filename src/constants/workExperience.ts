@@ -1,6 +1,7 @@
 import M2 from "@/assets/img/m2.jpg";
 import G1 from "@/assets/img/G1learn.jpeg";
 import Unisuam from "@/assets/img/unisuam.png";
+import Udemy from "@/assets/img/logo-udemy.svg"
 
 export interface WorkExperienceProps {
   title: string;
@@ -37,4 +38,11 @@ export const workExperience: WorkExperienceProps[] = [
     avatar: Unisuam,
     type: "Education",
   },
+  {
+    title: 'Curso de React.Js e Next.Js',
+    description: 'Curso de React.Js e Next.Js (nível intermediário e avançado) na Udemy',
+    dateEnd: '96 horas',
+    avatar: Udemy,
+    type: 'Education',
+  }
 ];

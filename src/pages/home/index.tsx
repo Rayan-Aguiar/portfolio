@@ -6,10 +6,21 @@ import WorkExperience from "../../components/Work";
 export default function Home() {
   return (
     <main className="w-full">
-      <Header />
-      <MiniAboutMe />
-      <WorkExperience />
-      <Projects />
+      <header>
+        <Header />
+      </header>
+
+      <section>
+        <MiniAboutMe />
+      </section>
+
+      <section>
+        <WorkExperience />
+      </section>
+
+      <section>
+        <Projects />
+      </section>
     </main>
   );
 }

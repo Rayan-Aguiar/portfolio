@@ -1,7 +1,8 @@
+import { FadeIn } from "@/components/animation/FadeIn";
 import { CardInfoProject } from "@/components/CardInfoProject";
 import { ProjectModal } from "@/components/ProjectModal";
 
-import { ProjectList, ProjectListProps } from "@/config/projects";
+import { ProjectList, ProjectListProps } from "@/constants/projects";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
 
@@ -32,7 +33,13 @@ export default function Projects() {
         <div>
           <h2 className="text-2xl text-zinc-200 font-semibold mt-8 mb-3 flex justify-center md:justify-start">{type}</h2>
           <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-            {projects.map((project) => (
+            {projects.map((project, index) => (
+              <FadeIn 
+                key={project.id}
+                to="bottom" 
+                delay={index * 0.2} 
+                duration={0.5} 
+                startOnScrollIntersect>
               <CardInfoProject
                 key={project.id}
                 description={project.description}
@@ -43,7 +50,9 @@ export default function Projects() {
                 linkGit={project?.linkGit}
                 linkSite={project?.linkSite}
               />
+              </FadeIn>              
             ))}
+            
           </div>
         </div>
       )}
@@ -76,13 +85,16 @@ export default function Projects() {
       </div>
 
       {currentProject && (
-        <ProjectModal
-          name={currentProject.name}
-          images={currentProject.images}
-          description={currentProject.description}
-          open={isModalOpen}
-          onClose={handleCloseModal}
-        />
+        <FadeIn to="right" delay={0.2} duration={0.5} startOnScrollIntersect>
+
+          <ProjectModal
+            name={currentProject.name}
+            images={currentProject.images}
+            description={currentProject.description}
+            open={isModalOpen}
+            onClose={handleCloseModal}
+          />
+        </FadeIn>
       )}
     </main>
   );
