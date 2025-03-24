@@ -10,76 +10,115 @@ import { Link, useLocation } from "react-router-dom";
 
 export default function AsideContent() {
   const location = useLocation();
-  const isActive = (path: string) => location.pathname === path ? 'bg-lightblue/20' : 'hover:bg-lightblue/20'
+
+  const isActive = (path: string) => location.pathname === path;
+  const activeClass = "bg-lightblue/20";
+  const defaultClass = "hover:bg-lightblue/20";
+
   return (
-    <>
-      <Link to="/">
-        <span className={`flex gap-2 items-center p-2 font-bold w-full rounded-md duration-75 ${isActive("/")}`}>
-          <HomeIcon className="text-lightblue w-4 h-4" /> Início
-        </span>
-      </Link>
+    <nav aria-label="Menu lateral">
+      <ul>
+        <li>
+          <Link
+            to="/"
+            className={`group flex gap-2 items-center p-2 font-bold w-full rounded-md duration-75 text-white ${
+              isActive("/") ? activeClass : defaultClass
+            }`}
+          >
+            <HomeIcon
+              className={`w-4 h-4 duration-150 ${
+                isActive("/") ? "text-lightblue" : "text-white group-hover:text-lightblue"
+              }`}
+            />
+            Início
+          </Link>
+        </li>
+      </ul>
 
-      <div className="mt-4">
-        <span className="font-semibold text-zinc-500 text-sm">Eu</span>
+      <section className="mt-4">
+        <h2 className="font-semibold text-zinc-500 text-sm">Eu</h2>
         <ul className="mt-2">
-          <Link to="/aboutme">
-            <li className={`flex gap-2 items-center p-2 w-full rounded-md duration-75 cursor-pointer text-sm ${isActive("/aboutme")}`}>
-              <BookOpen className="text-lightblue w-4 h-4" />
+          <li>
+            <Link
+              to="/aboutme"
+              className={`group flex gap-2 items-center p-2 w-full rounded-md duration-75 text-sm text-white ${
+                isActive("/aboutme") ? activeClass : defaultClass
+              }`}
+            >
+              <BookOpen
+                className={`w-4 h-4 duration-150 ${
+                  isActive("/aboutme") ? "text-lightblue" : "text-white group-hover:text-lightblue"
+                }`}
+              />
               Sobre mim
-            </li>
-          </Link>
-          <Link to="/projects">
-            <li className={`flex gap-2 items-center p-2 w-full rounded-md duration-75 cursor-pointer text-sm ${isActive("/projects")}`}>
-              <FolderOpenDot className="text-lightblue w-4 h-4" />
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/projects"
+              className={`group flex gap-2 items-center p-2 w-full rounded-md duration-75 text-sm text-white ${
+                isActive("/projects") ? activeClass : defaultClass
+              }`}
+            >
+              <FolderOpenDot
+                className={`w-4 h-4 duration-150 ${
+                  isActive("/projects") ? "text-lightblue" : "text-white group-hover:text-lightblue"
+                }`}
+              />
               Projetos
-            </li>
-          </Link>
-          <Link to="/technologies">
-            <li className={`flex gap-2 items-center p-2 w-full rounded-md duration-75 cursor-pointer text-sm ${isActive("/technologies")}`}>
-              <Laptop2 className="text-lightblue w-4 h-4" />
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/technologies"
+              className={`group flex gap-2 items-center p-2 w-full rounded-md duration-75 text-sm text-white ${
+                isActive("/technologies") ? activeClass : defaultClass
+              }`}
+            >
+              <Laptop2
+                className={`w-4 h-4 duration-150 ${
+                  isActive("/technologies") ? "text-lightblue" : "text-white group-hover:text-lightblue"
+                }`}
+              />
               Tecnologias e Ferramentas
-            </li>
-          </Link>
+            </Link>
+          </li>
         </ul>
-      </div>
+      </section>
 
-      <div className="mt-4">
-        <span className="font-semibold text-zinc-500 text-sm">
-          Redes Sociais
-        </span>
+      <section className="mt-4">
+        <h2 className="font-semibold text-zinc-500 text-sm">Redes Sociais</h2>
         <ul className="mt-2">
-          <a
-            href="https://github.com/Rayan-Aguiar"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <li className="flex gap-2 items-center justify-between hover:bg-white/10 p-2 w-full rounded-md duration-75 cursor-pointer text-sm">
-              <div className="flex gap-2 items-center">
-                <GitHubLogoIcon className="text-lightblue w-4 h-4" />
+          <li>
+            <a
+              href="https://github.com/Rayan-Aguiar"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex gap-2 items-center justify-between hover:bg-white/10 p-2 w-full rounded-md duration-75 text-sm text-white"
+            >
+              <span className="flex gap-2 items-center">
+                <GitHubLogoIcon className="w-4 h-4 text-white group-hover:text-lightblue duration-150" />
                 GitHub
-              </div>
-              <div>
-                <ArrowUpRight className="text-lightblue w-4 h-4" />
-              </div>
-            </li>
-          </a>
-          <a
-            href="https://www.linkedin.com/in/rayan-siqueira/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <li className="flex gap-2 items-center justify-between hover:bg-white/10 p-2 w-full rounded-md duration-75 cursor-pointer text-sm">
-              <div className="flex gap-2 items-center">
-                <LinkedInLogoIcon className="text-lightblue w-4 h-4" />
+              </span>
+              <ArrowUpRight className="w-4 h-4 text-white group-hover:text-lightblue duration-150" />
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.linkedin.com/in/rayan-siqueira/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex gap-2 items-center justify-between hover:bg-white/10 p-2 w-full rounded-md duration-75 text-sm text-white"
+            >
+              <span className="flex gap-2 items-center">
+                <LinkedInLogoIcon className="w-4 h-4 text-white group-hover:text-lightblue duration-150" />
                 Linkedin
-              </div>
-              <div>
-                <ArrowUpRight className="text-lightblue w-4 h-4" />
-              </div>
-            </li>
-          </a>
+              </span>
+              <ArrowUpRight className="w-4 h-4 text-white group-hover:text-lightblue duration-150" />
+            </a>
+          </li>
         </ul>
-      </div>
-    </>
+      </section>
+    </nav>
   );
 }
