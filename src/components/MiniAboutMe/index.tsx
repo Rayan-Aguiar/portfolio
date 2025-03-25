@@ -13,7 +13,7 @@ export default function MiniAboutMe() {
           Saiba mais <ChevronRight className="w-4 h-4" />{" "}
         </span>
       </div>
-      <p className="text-zinc-500 text-justify mt-4">
+      <p className="text-zinc-400 text-justify mt-4 text-lg">
         Desenvolvedor com experiência no ecossistema JavaScript, atuando com
         React.js, TypeScript, Node.js, React Native, TailwindCSS, Styled
         Components, Prisma e PostgreSQL para criar soluções completas e
