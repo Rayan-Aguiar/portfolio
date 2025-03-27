@@ -16,19 +16,18 @@ export default function Projects() {
   const featuredProjects = ProjectList.filter((project) => project.featured);
 
   return (
-    <div className="w-full h-fit border border-white/20 rounded-lg mt-6 p-8 text-white">
-      <div className="flex items-center justify-between flex-wrap">
+    <section className="w-full h-fit border border-white/20 rounded-lg mt-6 p-8 text-white">
+      <header className="flex items-center justify-between flex-wrap">
         <h2 className="flex gap-2 items-center text-xl font-semibold">
           <FcFolder />
           Principais Projetos
         </h2>
-        <Link to="/projects">
-          <span className="text-lightblue  cursor-pointer flex items-center hover:underline text-xs ">
-            Ver todos <ChevronRight className="w-4 h-4" />
-          </span>
+        <Link to="/projects" className="text-lightblue text-xs flex items-center hover:underline">
+          Ver todos <ChevronRight className="w-4 h-4" />
         </Link>
-      </div>
-      <div className="mt-8 flex gap-6 flex-wrap justify-center lg:justify-start">
+      </header>
+
+      <ul className="mt-8 flex gap-6 flex-wrap justify-center lg:justify-start">
         {featuredProjects.map((project, index) => (
           <FadeIn
             key={project.id}
@@ -37,16 +36,17 @@ export default function Projects() {
             duration={0.5}
             startOnScrollIntersect
           >
-            <CardInfoProject
-              key={project.id}
-              onClick={() => openProjectDialog(project)}
-              img={project.img}
-              name={project.name}
-              description={project.description}
-            />
+            <li>
+              <CardInfoProject
+                onClick={() => openProjectDialog(project)}
+                img={project.img}
+                name={project.name}
+                description={project.description}
+              />
+            </li>
           </FadeIn>
         ))}
-      </div>
+      </ul>
 
       {selectedProject && (
         <DialogProjectComponent
@@ -60,6 +60,6 @@ export default function Projects() {
           linkGitHub={selectedProject?.linkGit}
         />
       )}
-    </div>
+    </section>
   );
 }
