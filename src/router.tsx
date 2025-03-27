@@ -5,6 +5,7 @@ import Projects from "./pages/Projects";
 import Technologies from "./pages/Technologies";
 import AboutMe from "./pages/aboutme";
 import PageTitle from "./components/PageTitle";
+import NotFound from "./pages/notfound";
 
 export default function Router() {
   return (
@@ -16,6 +17,7 @@ export default function Router() {
           <Route path="/aboutme" element={<AboutMe />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/technologies" element={<Technologies />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>
