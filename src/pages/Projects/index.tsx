@@ -88,7 +88,8 @@ export default function Projects() {
           <ProjectModal
             name={currentProject.name}
             images={currentProject.images}
-            description={currentProject.description}
+            description={currentProject.descriptionFull}
+            descriptionImage={currentProject.descriptionImage}
             open={isModalOpen}
             onClose={handleCloseModal}
           />

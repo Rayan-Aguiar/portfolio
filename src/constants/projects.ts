@@ -4,6 +4,7 @@ export interface ProjectListProps {
   description: string;
   descriptionFull: string;
   img: string;
+  descriptionImage: string[];
   linkGit?: string;
   linkSite?: string;
   type: "Front-End" | "Mobile" | "Full-Stack" | "Back-End";
@@ -14,98 +15,29 @@ export interface ProjectListProps {
 export const ProjectList: ProjectListProps[] = [
   {
     id: 1,
-    name: "Lorem 1",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    name: "Rifa Mania",
+    description: "Projeto feito como React, TypeScript, NodeJs, Prisma e SQL",
     descriptionFull:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc eget posuere ultricies, ligula est consectetur velit, at lobortis metus lectus eu lectus. Sed condimentum, purus vitae elementum varius, neque velit facilisis neque, et consectetur purus libero id justo. Donec in libero vel turpis convallis vulputate. Sed non risus in neque tristique vulputate. Nulla facilisi. Pellentesque",
-    img: "https://cdn.sanity.io/images/v6oximkk/production/21d23aacc75f36df01310f8782e8102a0882276f-1600x900.jpg?w=1600&h=900&auto=format",
+      "Este é um projeto completo que envolve o desenvolvimento de um sistema de rifas online, com um backend em Node.js e um frontend em React. O objetivo do projeto é permitir aos usuários participarem de rifas online, com sorteios e atualizações automáticas de status, venda de tickets e links de venda compartilháveis.",
+    img: "/imagens/rifa/landing-page.png",
     type: "Front-End",
-    linkGit: "https://github.com/",
-    linkSite: "https://google.com",
+    linkGit: "https://github.com/Rayan-Aguiar/rifa_mania",
     featured: true,
+    descriptionImage: [
+      'Screenshot Landing Page',
+      'Screenshot Login',
+      'Screenshot Cadastro',
+      'Screenshot Dashboard',
+      'Screenshot Página de Venda',
+      'Screenshot Checkout',
+    ],
     images: [
-      "https://cdn.sanity.io/images/v6oximkk/production/21d23aacc75f36df01310f8782e8102a0882276f-1600x900.jpg?w=1600&h=900&auto=format",
-      "https://blog.eqseed.com/wp-content/uploads/2022/04/MicrosoftTeams-image-23.jpg"
-    ]
-  },
-  {
-    id: 2,
-    name: "Lorem 2",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    descriptionFull:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc eget posuere ultricies, ligula est consectetur velit, at lobortis metus lectus eu lectus. Sed condimentum, purus vitae elementum varius, neque velit facilisis neque, et consectetur purus libero id justo. Donec in libero vel turpis convallis vulputate. Sed non risus in neque tristique vulputate. Nulla facilisi. Pellentesque",
-    img: "https://cdn.sanity.io/images/v6oximkk/production/21d23aacc75f36df01310f8782e8102a0882276f-1600x900.jpg?w=1600&h=900&auto=format",
-    type: "Mobile",
-    linkGit: "https://github.com/",
-    linkSite: "https://google.com",
-    featured: true,
-    images: [
-      "https://cdn.sanity.io/images/v6oximkk/production/21d23aacc75f36df01310f8782e8102a0882276f-1600x900.jpg?w=1600&h=900&auto=format",
-      "https://blog.eqseed.com/wp-content/uploads/2022/04/MicrosoftTeams-image-23.jpg"
-    ]
-  },
-  {
-    id: 3,
-    name: "Lorem 3",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    descriptionFull:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc eget posuere ultricies, ligula est consectetur velit, at lobortis metus lectus eu lectus. Sed condimentum, purus vitae elementum varius, neque velit facilisis neque, et consectetur purus libero id justo. Donec in libero vel turpis convallis vulputate. Sed non risus in neque tristique vulputate. Nulla facilisi. Pellentesque",
-    img: "https://cdn.sanity.io/images/v6oximkk/production/21d23aacc75f36df01310f8782e8102a0882276f-1600x900.jpg?w=1600&h=900&auto=format",
-    type: "Front-End",
-    linkGit: "https://github.com/",
-    linkSite: "https://google.com",
-    featured: true,
-    images: [
-      "https://cdn.sanity.io/images/v6oximkk/production/21d23aacc75f36df01310f8782e8102a0882276f-1600x900.jpg?w=1600&h=900&auto=format",
-      "https://blog.eqseed.com/wp-content/uploads/2022/04/MicrosoftTeams-image-23.jpg"
-    ]
-  },
-  {
-    id: 4,
-    name: "Lorem 4",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    descriptionFull:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc eget posuere ultricies, ligula est consectetur velit, at lobortis metus lectus eu lectus. Sed condimentum, purus vitae elementum varius, neque velit facilisis neque, et consectetur purus libero id justo. Donec in libero vel turpis convallis vulputate. Sed non risus in neque tristique vulputate. Nulla facilisi. Pellentesque",
-    img: "https://cdn.sanity.io/images/v6oximkk/production/21d23aacc75f36df01310f8782e8102a0882276f-1600x900.jpg?w=1600&h=900&auto=format",
-    type: "Front-End",
-    linkGit: "https://github.com/",
-    linkSite: "https://google.com",
-    featured: true,
-    images: [
-      "https://cdn.sanity.io/images/v6oximkk/production/21d23aacc75f36df01310f8782e8102a0882276f-1600x900.jpg?w=1600&h=900&auto=format",
-      "https://blog.eqseed.com/wp-content/uploads/2022/04/MicrosoftTeams-image-23.jpg"
-    ]
-  },
-  {
-    id: 5,
-    name: "Lorem 5",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    descriptionFull:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc eget posuere ultricies, ligula est consectetur velit, at lobortis metus lectus eu lectus. Sed condimentum, purus vitae elementum varius, neque velit facilisis neque, et consectetur purus libero id justo. Donec in libero vel turpis convallis vulputate. Sed non risus in neque tristique vulputate. Nulla facilisi. Pellentesque",
-    img: "https://cdn.sanity.io/images/v6oximkk/production/21d23aacc75f36df01310f8782e8102a0882276f-1600x900.jpg?w=1600&h=900&auto=format",
-    type: "Back-End",
-    linkGit: "https://github.com/",
-    linkSite: "https://google.com",
-    featured: false,
-    images: [
-      "https://cdn.sanity.io/images/v6oximkk/production/21d23aacc75f36df01310f8782e8102a0882276f-1600x900.jpg?w=1600&h=900&auto=format",
-      "https://blog.eqseed.com/wp-content/uploads/2022/04/MicrosoftTeams-image-23.jpg"
-    ]
-  },
-  {
-    id: 6,
-    name: "Lorem 5",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    descriptionFull:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc eget posuere ultricies, ligula est consectetur velit, at lobortis metus lectus eu lectus. Sed condimentum, purus vitae elementum varius, neque velit facilisis neque, et consectetur purus libero id justo. Donec in libero vel turpis convallis vulputate. Sed non risus in neque tristique vulputate. Nulla facilisi. Pellentesque",
-    img: "https://cdn.sanity.io/images/v6oximkk/production/21d23aacc75f36df01310f8782e8102a0882276f-1600x900.jpg?w=1600&h=900&auto=format",
-    type: "Front-End",
-    linkGit: "https://github.com/",
-    linkSite: "https://google.com",
-    featured: false,
-    images: [
-      "https://cdn.sanity.io/images/v6oximkk/production/21d23aacc75f36df01310f8782e8102a0882276f-1600x900.jpg?w=1600&h=900&auto=format",
-      "https://blog.eqseed.com/wp-content/uploads/2022/04/MicrosoftTeams-image-23.jpg"
+      "/imagens/rifa/landing-page.png",
+      "/imagens/rifa/Login.png",
+      "/imagens/rifa/Cadastro.png",
+      "/imagens/rifa/dashboard.png",
+      "/imagens/rifa/pagina-venda.png",
+      "/imagens/rifa/checkout.png",
     ]
   },
 ];
