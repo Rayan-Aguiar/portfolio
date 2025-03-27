@@ -21,7 +21,7 @@ export default function NotFound() {
         </Link>
         .
       </p>
-      <Lottie animationData={page404} loop className="w-[1200px] " />
+      <Lottie animationData={page404} loop className="lg:w-[1200px] w-[600px] md:w-[800px]" />
     </div>
   );
 }
