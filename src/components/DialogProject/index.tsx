@@ -29,7 +29,7 @@ export const DialogProjectComponent: React.FC<DialogProjectComponentProps> = ({
 }) => {
   return (
     <Dialog open={openDialog} onOpenChange={setOpenDialog}>
-      <DialogContent className="bg-darkblue border-none text-white max-w-none w-[80vh] h-fit">
+      <DialogContent className="bg-darkblue border-none text-white max-w-none lg:w-[80vh] h-fit">
         <img
           src={img}
           className="mt-6 rounded-lg transform hover:scale-105 duration-500"
