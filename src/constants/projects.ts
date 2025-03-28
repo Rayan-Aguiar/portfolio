@@ -29,6 +29,7 @@ export const ProjectList: ProjectListProps[] = [
       'Screenshot Cadastro',
       'Screenshot Dashboard',
       'Screenshot Página de Venda',
+      'Screenshot Sorteio/Vencedor',
       'Screenshot Checkout',
     ],
     images: [
@@ -37,6 +38,7 @@ export const ProjectList: ProjectListProps[] = [
       "/imagens/rifa/Cadastro.png",
       "/imagens/rifa/dashboard.png",
       "/imagens/rifa/pagina-venda.png",
+      "/imagens/rifa/sorteio.png",
       "/imagens/rifa/checkout.png",
     ]
   },
