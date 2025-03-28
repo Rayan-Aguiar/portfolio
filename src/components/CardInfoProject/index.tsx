@@ -23,7 +23,7 @@ export const CardInfoProject: React.FC<CardInfoProjectProps> = ({
 }) => {
   return (
     <Card
-      className={`max-w-[315px] min-h-96 overflow-hidden bg-transparent border-2 group border-slate-800 hover:border-slate-300 duration-300 ${
+      className={`max-w-[315px] h-80 overflow-hidden bg-transparent border-2 group border-slate-800 hover:border-slate-300 duration-300 ${
         showLinks ? "cursor-zoom-in" : "cursor-pointer"
       }`}
       onClick={onClick}
@@ -33,12 +33,12 @@ export const CardInfoProject: React.FC<CardInfoProjectProps> = ({
         alt="preview"
         className="transform group-hover:scale-105 duration-500"
       />
-      <CardContent className="p-4 text-white  h-full">
+      <CardContent className="p-4 text-white h-full flex flex-col ju">
         <h3 className="text-xl font-bold">{name}</h3>
-        <p className=" text-slate-400 ">{description}</p>
+        <p className=" text-slate-400 line-clamp-2 overflow-hidden">{description}</p>
 
         {showLinks === false && (
-          <p className="flex items-center gap-1 mt-2">
+          <p className="flex items-center gap-1 mt-8">
             <CiCirclePlus />
             Detalhes
           </p>
