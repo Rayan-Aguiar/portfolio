@@ -1,10 +1,12 @@
-import { GitHubLogoIcon, LinkedInLogoIcon } from "@radix-ui/react-icons";
+import { contacts } from "@/constants/contacts";
+import { GitHubLogoIcon, LinkedInLogoIcon,  } from "@radix-ui/react-icons";
 import {
   ArrowUpRight,
   BookOpen,
   FolderOpenDot,
   HomeIcon,
   Laptop2,
+  Mail,
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -91,7 +93,7 @@ export default function AsideContent() {
         <ul className="mt-2">
           <li>
             <a
-              href="https://github.com/Rayan-Aguiar"
+              href={contacts.github}
               target="_blank"
               rel="noopener noreferrer"
               className="group flex gap-2 items-center justify-between hover:bg-white/10 p-2 w-full rounded-md duration-75 text-sm text-white"
@@ -105,7 +107,7 @@ export default function AsideContent() {
           </li>
           <li>
             <a
-              href="https://www.linkedin.com/in/rayan-siqueira/"
+              href={contacts.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               className="group flex gap-2 items-center justify-between hover:bg-white/10 p-2 w-full rounded-md duration-75 text-sm text-white"
@@ -113,6 +115,20 @@ export default function AsideContent() {
               <span className="flex gap-2 items-center">
                 <LinkedInLogoIcon className="w-4 h-4 text-white group-hover:text-lightblue duration-150" />
                 Linkedin
+              </span>
+              <ArrowUpRight className="w-4 h-4 text-white group-hover:text-lightblue duration-150" />
+            </a>
+          </li>
+          <li>
+            <a
+              href={`mailto:${contacts.email}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex gap-2 items-center justify-between hover:bg-white/10 p-2 w-full rounded-md duration-75 text-sm text-white"
+            >
+              <span className="flex gap-2 items-center">
+                <Mail className="w-4 h-4 text-white group-hover:text-lightblue duration-150" />
+                Email
               </span>
               <ArrowUpRight className="w-4 h-4 text-white group-hover:text-lightblue duration-150" />
             </a>

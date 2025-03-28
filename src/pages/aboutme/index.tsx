@@ -1,4 +1,5 @@
 import fotoRayan from "@/assets/img/rayan.jpg";
+import { contacts } from "@/constants/contacts";
 
 export default function AboutMe() {
   return (
@@ -92,7 +93,7 @@ export default function AboutMe() {
 
         <div className="mt-6 flex flex-col sm:flex-row justify-center gap-4">
           <a 
-            href="https://www.linkedin.com/in/seu-perfil" 
+            href={contacts.linkedin} 
             target="_blank" 
             rel="noopener noreferrer" 
             className="border border-lightblue text-white font-bold py-3 px-6 rounded-lg hover:bg-lightblue transition"
@@ -100,13 +101,13 @@ export default function AboutMe() {
             💼 LinkedIn
           </a>
           <a 
-            href="mailto:seuemail@email.com" 
+            href={`mailto:${contacts.email}`}
             className="border border-lightblue text-white font-bold py-3 px-6 rounded-lg hover:bg-lightblue transition"
           >
             ✉️ E-mail
           </a>
           <a 
-            href="https://wa.me/seu-numero" 
+            href={`https://api.whatsapp.com/send?phone=${contacts.phone}`} 
             target="_blank" 
             rel="noopener noreferrer" 
             className="border border-lightblue text-white font-bold py-3 px-6 rounded-lg hover:bg-lightblue transition"
