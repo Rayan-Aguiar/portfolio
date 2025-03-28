@@ -20,7 +20,7 @@ export const ProjectList: ProjectListProps[] = [
     descriptionFull:
       "Este é um projeto completo que envolve o desenvolvimento de um sistema de rifas online, com um backend em Node.js e um frontend em React. O objetivo do projeto é permitir aos usuários participarem de rifas online, com sorteios e atualizações automáticas de status, venda de tickets e links de venda compartilháveis.",
     img: "/imagens/rifa/landing-page.png",
-    type: "Front-End",
+    type: "Full-Stack",
     linkGit: "https://github.com/Rayan-Aguiar/rifa_mania",
     featured: true,
     descriptionImage: [
