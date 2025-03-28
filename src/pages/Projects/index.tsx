@@ -1,6 +1,7 @@
 import { FadeIn } from "@/components/animation/FadeIn";
 import { CardInfoProject } from "@/components/CardInfoProject";
 import { ProjectModal } from "@/components/ProjectModal";
+import { contacts } from "@/constants/contacts";
 
 import { ProjectList, ProjectListProps } from "@/constants/projects";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
@@ -70,7 +71,7 @@ export default function Projects() {
               encontra mais em meu
             </span>
             <a
-              href="https://github.com/Rayan-Aguiar"
+              href={contacts.github}
               target="_blank"
               rel="noopener noreferrer"
               className="flex gap-1 items-center text-lightblue hover:underline"

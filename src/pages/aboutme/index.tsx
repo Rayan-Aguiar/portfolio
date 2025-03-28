@@ -1,4 +1,5 @@
 import fotoRayan from "@/assets/img/rayan.jpg";
+import { FadeIn } from "@/components/animation/FadeIn";
 import { contacts } from "@/constants/contacts";
 
 export default function AboutMe() {
@@ -23,7 +24,7 @@ export default function AboutMe() {
             <figcaption className="sr-only">Foto de Rayan</figcaption>
           </figure>
 
-          <div>
+          <FadeIn to="right" duration={0.5} delay={0.2}>
             <p className="mt-6">
               Desde pequeno, sempre fui fascinado por criatividade e tecnologia.
               Meu primeiro contato profissional foi como designer gráfico, onde
@@ -59,32 +60,37 @@ export default function AboutMe() {
                 <li><strong>Ferramentas:</strong> Docker, Jest, Git, Figma</li>
               </ul>
             </section>
-          </div>
+          </FadeIn>
 
           <figure className="w-full hidden lg:block">
-            <img 
-              src={fotoRayan} 
-              alt="Foto de Rayan" 
-              className="w-full h-full object-cover rounded-lg" 
-            />
+            <FadeIn to="left" duration={0.5} delay={0.2}>
+              <img 
+                src={fotoRayan} 
+                alt="Foto de Rayan" 
+                className="w-full h-full object-cover rounded-lg" 
+              />
+            </FadeIn>
             <figcaption className="sr-only">Foto de Rayan</figcaption>
           </figure>
         </div>
 
-        <p className="mt-2 text-justify">
-          Trabalho com metodologias ágeis, versionamento de código e boas práticas 
-          de desenvolvimento para garantir a qualidade e a manutenção dos projetos.
-        </p>
+        <FadeIn to="right" duration={0.5} delay={0.2}>
+          <p className="mt-2 text-justify">
+            Trabalho com metodologias ágeis, versionamento de código e boas práticas 
+            de desenvolvimento para garantir a qualidade e a manutenção dos projetos.
+          </p>
 
-        <p className="mt-6 text-justify">
-          🚀 Meu objetivo é unir tecnologia e design para criar soluções
-          inovadoras que fazem a diferença. Estou sempre aberto a novos desafios
-          que me tirem da zona de conforto e me permitam crescer profissionalmente.
-        </p>
+          <p className="mt-6 text-justify">
+            🚀 Meu objetivo é unir tecnologia e design para criar soluções
+            inovadoras que fazem a diferença. Estou sempre aberto a novos desafios
+            que me tirem da zona de conforto e me permitam crescer profissionalmente.
+          </p>
+        </FadeIn>
       </article>
 
       {/* CTA - Chamada para ação */}
       <section className="mt-6 p-6 border border-slate-100/20 text-white text-center rounded-lg">
+      <FadeIn to="bottom" duration={0.5} delay={0.2} startOnScrollIntersect>
         <h2 className="text-3xl font-bold">Gostou da minha trajetória? 😊</h2>
         <p className="mt-4 text-lg">
           Vamos conversar! Se você quer trocar ideias sobre tecnologia, design ou
@@ -115,6 +121,8 @@ export default function AboutMe() {
             📱 WhatsApp
           </a>
         </div>
+
+      </FadeIn>
       </section>
     </section>
   );
