@@ -42,4 +42,25 @@ export const ProjectList: ProjectListProps[] = [
       "/imagens/rifa/checkout.png",
     ]
   },
+  {
+    id: 2,
+    name: 'Pousada Litorânea',
+    description: 'Projeto desenvolvido com HTML, CSS e JavaScript.',
+    descriptionFull: 'Este projeto foi desenvolvido como um Freelancer para a Pousada Litorânea, com o objetivo de proporcionar uma experiência mais envolvente e visualmente atraente para os visitantes. O site destaca as comodidades e os quartos da pousada, além de integrar-se diretamente com o sistema de reservas do Booking, facilitando o processo de reserva para os hóspedes.',
+    img: '/imagens/pousada/home.png',
+    type: 'Front-End',
+    linkSite: 'https://litoranearj.com.br/index.html',
+    featured: true,
+    descriptionImage: [
+      'Screenshot da página inicial',
+      'Screenshot da galeria de fotos',
+      'Screenshot da página de contato'
+    ],
+    images: [
+      '/imagens/pousada/home.png',
+      '/imagens/pousada/galeria.png',
+      '/imagens/pousada/contato.png'
+    ]
+  }
+  
 ];
