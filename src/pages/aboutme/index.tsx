@@ -26,7 +26,7 @@ export default function AboutMe() {
 
           <FadeIn to="right" duration={0.5} delay={0.2}>
             <p className="mt-6">
-              Desde pequeno, sempre fui fascinado por criatividade e tecnologia.
+              Desde pequeno, sempre fui fascinado por inovação e tecnologia.
               Meu primeiro contato profissional foi como designer gráfico, onde
               atuei por <strong>10 anos</strong> criando identidades visuais,
               materiais publicitários e interfaces digitais. Nesse período,
