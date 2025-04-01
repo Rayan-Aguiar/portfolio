@@ -7,7 +7,7 @@ Bem-vindo ao repositório do meu portfólio! Aqui você pode conferir os projeto
 
 ## 🖼️ Preview
 <p align='center'>
-   <img alt='Preview Portfólio' src='./github/preview.png'/>
+   <img alt='Preview Portfólio' src='./.github/preview.png'/>
 </p>
 
 ## 🛠️ Tecnologias Utilizadas
