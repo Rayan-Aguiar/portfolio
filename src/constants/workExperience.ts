@@ -2,6 +2,7 @@ import M2 from "@/assets/img/m2.jpg";
 import G1 from "@/assets/img/G1learn.jpeg";
 import Unisuam from "@/assets/img/unisuam.png";
 import Udemy from "@/assets/img/logo-udemy.svg"
+import fadel from "@/assets/img/fadel.png";
 
 export interface WorkExperienceProps {
   title: string;
@@ -15,10 +16,19 @@ export interface WorkExperienceProps {
 
 export const workExperience: WorkExperienceProps[] = [
   {
+    title: "Fadel Transportes",
+    description: "Desenvolvedor Full-Stack",
+    dateInitial: "2025",
+    dateEnd: "Atualmente",
+    avatar: fadel,
+    type: "Work",
+    highlight: true,
+  },
+  {
     title: "M2Flex",
     description: "Desenvolvedor Mobile",
     dateInitial: "2024",
-    dateEnd: "atualmente",
+    dateEnd: "2025",
     avatar: M2,
     type: "Work",
     highlight: true,
