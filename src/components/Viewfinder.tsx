@@ -1,8 +1,11 @@
-import { Suspense, useEffect, useState } from "react";
+import { NewTab } from "@/components/NewTab";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { BriefcaseBusiness, FileDown, FolderGit2, MessageCircle } from "lucide-react";
+import { ArrowUp, BriefcaseBusiness, FileDown, FolderGit2, MessageCircle } from "lucide-react";
 import { reels, site } from "@/data/site";
 import { allProjects } from "@/data/projects";
+import { scrollToTop, useSceneScroll } from "@/lib/scroll";
+import { refreshScroll, useScrollEffect, useScrollSelector } from "@/lib/scrollStore";
 
 /** 1 segundo de fita a cada 10 px rolados. */
 const PX_PER_SECOND = 10;
@@ -13,30 +16,6 @@ function timecode(totalSeconds: number) {
   const m = Math.floor((s % 3600) / 60);
   const sec = s % 60;
   return `${h}:${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
-}
-
-function useScroll() {
-  const [state, setState] = useState({ y: 0, progress: 0 });
-  useEffect(() => {
-    let frame = 0;
-    const read = () => {
-      frame = 0;
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      setState({ y: window.scrollY, progress: max > 0 ? window.scrollY / max : 0 });
-    };
-    const onScroll = () => {
-      if (!frame) frame = requestAnimationFrame(read);
-    };
-    read();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      cancelAnimationFrame(frame);
-    };
-  }, []);
-  return state;
 }
 
 /** Qual seção da home está no centro do visor. */
@@ -58,31 +37,48 @@ function useActiveReel(pathname: string) {
   return active;
 }
 
-export function Viewfinder() {
-  const { pathname, hash } = useLocation();
-  const { y, progress } = useScroll();
-  const active = useActiveReel(pathname);
+/** Aparece depois de 80% da página; só re-renderiza ao cruzar esse ponto. */
+function BackToTop() {
+  const show = useScrollSelector((s) => s.progress >= 0.8);
+  if (!show) return null;
+  const backToTop = () => {
+    scrollToTop();
+    document.getElementById("conteudo")?.focus({ preventScroll: true });
+  };
+  return (
+    <button type="button" className="vf-top-btn brk brk--osd is-on" onClick={backToTop} aria-label="Voltar ao topo">
+      <ArrowUp aria-hidden="true" />
+    </button>
+  );
+}
 
-  // Ao trocar de tela: topo (ou âncora) e um quadro de corte seco.
-  useEffect(() => {
-    if (hash) {
-      const el = document.getElementById(hash.slice(1));
-      if (el) {
-        el.scrollIntoView();
-        return;
-      }
-    }
-    window.scrollTo(0, 0);
-  }, [pathname, hash]);
+export function Viewfinder() {
+  const location = useLocation();
+  const { pathname } = location;
+  const active = useActiveReel(pathname);
+  useSceneScroll(location);
+  useEffect(refreshScroll, [location.key]);
 
   const slug = pathname.startsWith("/projetos/") ? pathname.split("/")[2] : undefined;
   const clipIndex = slug ? allProjects.findIndex((p) => p.slug === slug) : -1;
   const clip = clipIndex >= 0 ? allProjects[clipIndex] : undefined;
   const isHome = pathname === "/";
 
-  // W = visão geral, T = detalhe. A home vai de W até o meio; o projeto fica em T.
-  const zoom = clip ? 0.94 : isHome ? 0.04 + progress * 0.56 : 0;
   const base = clip ? (clipIndex + 1) * 600 : 0;
+
+  // Contador e zoom acompanham a rolagem escrevendo direto no DOM:
+  // o React (e a página inteira) não re-renderiza a cada quadro.
+  const counterRef = useRef<HTMLSpanElement>(null);
+  const zoomRef = useRef<HTMLDivElement>(null);
+  useScrollEffect(
+    ({ y, progress }) => {
+      // W = visão geral, T = detalhe. A home vai de W até o meio; o projeto fica em T.
+      const zoom = clip ? 0.94 : isHome ? 0.04 + progress * 0.56 : 0;
+      zoomRef.current?.style.setProperty("--z", zoom.toFixed(3));
+      if (counterRef.current) counterRef.current.textContent = timecode(base + y / PX_PER_SECOND);
+    },
+    [pathname],
+  );
   const reelIndex = reels.findIndex((r) => r.id === active);
   const reelLabel = clip
     ? { no: `C${String(clipIndex + 1).padStart(2, "0")}`, name: clip.title }
@@ -117,7 +113,9 @@ export function Viewfinder() {
         <div className="vf-rec" aria-hidden="true">
           <span className="vf-rec__dot" />
           <span className="vf-rec__label">Rec</span>
-          <span className="seg vf-counter">{timecode(base + y / PX_PER_SECOND)}</span>
+          <span ref={counterRef} className="seg vf-counter">
+            {timecode(base)}
+          </span>
         </div>
       </header>
 
@@ -130,12 +128,14 @@ export function Viewfinder() {
         </Suspense>
       </main>
 
+      <BackToTop />
+
       <footer className="vf-bar vf-bottom">
         <div className="vf-reel" aria-hidden="true">
           <span className="seg">{reelLabel.no}</span>
           <b>{reelLabel.name}</b>
         </div>
-        <div className="zoom" aria-hidden="true" style={{ ["--z" as string]: zoom.toFixed(3) }}>
+        <div ref={zoomRef} className="zoom" aria-hidden="true">
           <span className="zoom__end">W</span>
           <span className="zoom__track">
             <span className="zoom__fill" />
@@ -145,6 +145,7 @@ export function Viewfinder() {
         </div>
         <a className="vf-status brk" href={site.contacts.whatsapp} target="_blank" rel="noreferrer">
           {site.status}
+          <NewTab />
         </a>
         <nav className="vf-mobile-nav" aria-label="Atalhos">
           <Link to="/#projetos" className="brk brk--osd" aria-current={navCurrent("projetos") ? "true" : undefined}>
@@ -166,6 +167,7 @@ export function Viewfinder() {
           <a href={site.contacts.whatsapp} className="brk is-rec" target="_blank" rel="noreferrer">
             <MessageCircle aria-hidden="true" />
             Contato
+            <NewTab />
           </a>
         </nav>
       </footer>

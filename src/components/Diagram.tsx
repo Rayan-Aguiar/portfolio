@@ -6,10 +6,10 @@ const H = 600;
 const NODE_H = 66;
 const NODE_H_SHORT = 50;
 
-const OSD = "#f2f2ee";
-const DIM = "#a9adb1";
-const AMBER = "#ffb000";
-const LB = "#0a0a0a";
+const OSD = "var(--osd)";
+const DIM = "var(--osd-dim)";
+const AMBER = "var(--amber)";
+const LB = "var(--lb)";
 
 function size(n: DiagramNode) {
   return { w: n.w ?? 210, h: n.sub ? NODE_H : NODE_H_SHORT };
@@ -103,10 +103,12 @@ interface Props {
   data: DiagramData;
   label: string;
   compact?: boolean;
+  /** Desenha as arestas principais em sequência ao montar. */
+  trace?: boolean;
 }
 
 /** Diagrama de arquitetura no traço do OSD sobre a grade do HUD. */
-export function Diagram({ data, label, compact }: Props) {
+export function Diagram({ data, label, compact, trace }: Props) {
   const uid = useId().replace(/:/g, "");
   const byId = new Map(data.nodes.map((n) => [n.id, n]));
 
@@ -127,6 +129,8 @@ export function Diagram({ data, label, compact }: Props) {
           </marker>
         </defs>
         {data.edges.map((e, i) => {
+          const traced = trace && e.main && !e.async;
+          const order = data.edges.slice(0, i).filter((x) => x.main && !x.async).length;
           const a = byId.get(e.from);
           const b = byId.get(e.to);
           if (!a || !b) return null;
@@ -139,6 +143,9 @@ export function Diagram({ data, label, compact }: Props) {
                 stroke={e.main ? AMBER : DIM}
                 strokeWidth={compact ? 4 : e.main ? 2.5 : 1.75}
                 strokeDasharray={e.async ? "8 7" : undefined}
+                pathLength={traced ? 1 : undefined}
+                className={traced ? "trace" : undefined}
+                style={traced ? { animationDelay: `${420 + Math.min(order, 5) * 110}ms` } : undefined}
                 markerEnd={compact ? undefined : `url(#${e.main ? "m" : "a"}${uid})`}
               />
               {e.label && !compact && (

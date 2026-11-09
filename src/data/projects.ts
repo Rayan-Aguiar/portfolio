@@ -32,7 +32,7 @@ export interface Diagram {
 }
 
 export type Media =
-  | { type: "image"; src: string; alt: string; frame?: "phone" }
+  | { type: "image"; src: string; alt: string; width: number; height: number; frame?: "phone" }
   | { type: "diagram"; diagram: Diagram; alt: string };
 
 export interface Project {
@@ -48,7 +48,7 @@ export interface Project {
   architecture: string[];
   stack: string[];
   media: Media;
-  gallery?: { src: string; alt: string }[];
+  gallery?: { src: string; alt: string; width: number; height: number }[];
   links?: { repo?: string; site?: string };
 }
 
@@ -391,9 +391,11 @@ export const projects: Project[] = [
       type: "image",
       src: "/imagens/projetos/nosend-dark.webp",
       alt: "Visualizador do NoSend em tema escuro mostrando um upload multipart bloqueado, com headers e o arquivo interpretado.",
+      width: 1600,
+      height: 900,
     },
     gallery: [
-      { src: "/imagens/projetos/nosend.webp", alt: "Visualizador do NoSend com um POST JSON bloqueado e seu payload." },
+      { src: "/imagens/projetos/nosend.webp", alt: "Visualizador do NoSend com um POST JSON bloqueado e seu payload.", width: 1600, height: 900 },
     ],
     links: { repo: "https://github.com/Rayan-Aguiar/NoSend" },
   },
@@ -422,6 +424,8 @@ export const projects: Project[] = [
       type: "image",
       src: "/imagens/projetos/atlas-odonto-3d.webp",
       alt: "Atlas Odonto 3D: crânio em 3D no centro, filtros de camadas à esquerda e a lista de estruturas para começar à direita.",
+      width: 1600,
+      height: 900,
     },
     links: { site: "https://atlas-odonto-3d.vercel.app" },
   },
@@ -450,6 +454,8 @@ export const projects: Project[] = [
       type: "image",
       src: "/imagens/projetos/phone-simulator.webp",
       alt: "Página do Google aberta dentro de um Xiaomi Mi 11i simulado pela extensão.",
+      width: 600,
+      height: 1276,
       frame: "phone",
     },
     links: { repo: "https://github.com/Rayan-Aguiar/phone-simulator" },
@@ -528,12 +534,14 @@ export const archive: Project[] = [
       type: "image",
       src: "/imagens/rifa/landing-page.webp",
       alt: "Landing page do Rifa Mania.",
+      width: 1400,
+      height: 684,
     },
     gallery: [
-      { src: "/imagens/rifa/dashboard.webp", alt: "Painel do organizador com as rifas." },
-      { src: "/imagens/rifa/pagina-venda.webp", alt: "Página de venda de tickets." },
-      { src: "/imagens/rifa/checkout.webp", alt: "Checkout da compra de tickets." },
-      { src: "/imagens/rifa/sorteio.webp", alt: "Tela de sorteio mostrando o vencedor." },
+      { src: "/imagens/rifa/dashboard.webp", alt: "Painel do organizador com as rifas.", width: 1400, height: 674 },
+      { src: "/imagens/rifa/pagina-venda.webp", alt: "Página de venda de tickets.", width: 1400, height: 684 },
+      { src: "/imagens/rifa/checkout.webp", alt: "Checkout da compra de tickets.", width: 1400, height: 672 },
+      { src: "/imagens/rifa/sorteio.webp", alt: "Tela de sorteio mostrando o vencedor.", width: 1400, height: 682 },
     ],
     links: { repo: "https://github.com/Rayan-Aguiar/rifa_mania" },
   },
@@ -556,10 +564,12 @@ export const archive: Project[] = [
       type: "image",
       src: "/imagens/pousada/home.webp",
       alt: "Página inicial do site da Pousada Litorânea.",
+      width: 1400,
+      height: 678,
     },
     gallery: [
-      { src: "/imagens/pousada/galeria.webp", alt: "Galeria de fotos da pousada." },
-      { src: "/imagens/pousada/contato.webp", alt: "Página de contato da pousada." },
+      { src: "/imagens/pousada/galeria.webp", alt: "Galeria de fotos da pousada.", width: 1400, height: 664 },
+      { src: "/imagens/pousada/contato.webp", alt: "Página de contato da pousada.", width: 1400, height: 676 },
     ],
     links: { site: "https://litoranearj.com.br/index.html" },
   },

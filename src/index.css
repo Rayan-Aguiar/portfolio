@@ -41,6 +41,7 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
   overflow-x: clip;
   scroll-padding-top: calc(var(--bar) + 24px);
   scrollbar-color: var(--hud-line) var(--lb);
@@ -102,6 +103,11 @@ button {
 }
 
 :focus-visible {
+  outline: none;
+}
+/* Títulos recebem foco programático na navegação; sem anel, mas sem perder a posição. */
+h1[tabindex="-1"]:focus,
+h2[tabindex="-1"]:focus {
   outline: none;
 }
 
@@ -280,6 +286,15 @@ button {
   --brk-in: -6px -10px;
 }
 
+/* Alvos de toque: 44 px de altura mínima na barra e no voltar. */
+.vf-brand,
+.vf-nav a,
+.vf-status,
+.case__back {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
 .vf-nav {
   display: flex;
   gap: 4px;
@@ -298,6 +313,7 @@ button {
 }
 
 .vf-rec {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -321,7 +337,6 @@ button {
   font-variant-numeric: tabular-nums;
 }
 /* DSEG14 só onde o número é grande o bastante para ler. */
-.seg--lg,
 .log__when .seg,
 .vf-counter {
   font-family: var(--f-seg);
@@ -441,6 +456,11 @@ main {
 }
 
 /* ───────────────────────── Tipografia ───────────────────────── */
+.display,
+.h2,
+.feature__title {
+  overflow-wrap: anywhere;
+}
 .display {
   font-family: var(--f-display);
   font-weight: 800;
@@ -573,6 +593,7 @@ main {
   padding-bottom: clamp(40px, 6vh, 72px);
 }
 .reel__head {
+  flex-wrap: wrap;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
@@ -583,7 +604,6 @@ main {
 .reel__count {
   font-size: 0.875rem;
   color: var(--osd-dim);
-  white-space: nowrap;
 }
 
 /* Clipe em destaque */
@@ -757,6 +777,10 @@ main {
   overflow: hidden;
   border: 1px solid var(--hud);
   background: var(--lb);
+}
+.scene__media:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: -2px;
 }
 .scene__media img {
   width: 100%;
@@ -1106,6 +1130,10 @@ main {
   display: grid;
   gap: 24px;
 }
+.case__gallery img {
+  width: 100%;
+  height: auto;
+}
 .case__gallery figure {
   border: 1px solid var(--hud);
 }
@@ -1208,16 +1236,247 @@ main {
   }
 }
 
+/* ───────── Ligar a câmera (só na 1ª visita da sessão; classe posta no index.html) ───────── */
+@keyframes frame-in {
+  from {
+    transform: scale(1.06);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+@keyframes osd-on {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  55% {
+    opacity: 0.25;
+  }
+  70%,
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes scan {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+.power-on .vf-safe {
+  animation: frame-in 380ms steps(4, end) both;
+}
+.power-on .vf-top > *,
+.power-on .vf-bottom > * {
+  animation: osd-on 420ms steps(1, end) 140ms both;
+}
+.power-on .vf-top > :nth-child(2),
+.power-on .vf-bottom > :nth-child(2) {
+  animation-delay: 220ms;
+}
+.power-on .vf-top > :nth-child(3),
+.power-on .vf-bottom > :nth-child(3) {
+  animation-delay: 300ms;
+}
+.power-on .open__title {
+  animation: scan 640ms steps(12, end) 280ms backwards;
+}
+.power-on .subject__frame::after {
+  animation-delay: 460ms;
+}
+.power-on .open__osd,
+.power-on .open__lede,
+.power-on .open__actions {
+  animation: osd-on 420ms steps(1, end) 820ms both;
+}
+.power-on .vf-rec__dot {
+  animation:
+    osd-on 1ms 1000ms both,
+    rec 1.2s steps(1, end) 1000ms infinite;
+}
+
+/* ───────── Zoom W→T: o clipe vira o quadro do projeto (View Transitions) ───────── */
+.vf-top {
+  view-transition-name: vf-top;
+}
+.vf-bottom {
+  view-transition-name: vf-bottom;
+}
+.vf-safe {
+  view-transition-name: vf-safe;
+}
+::view-transition-group(*) {
+  animation-duration: 460ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+::view-transition-old(root) {
+  animation: vt-out 120ms steps(2, end) both;
+}
+::view-transition-new(root) {
+  animation: vt-in 200ms steps(3, end) 90ms both;
+}
+@keyframes vt-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes vt-in {
+  from {
+    opacity: 0;
+  }
+}
+/* Onde há View Transitions, o zoom substitui o quadro preto de corte. */
+@supports (view-transition-name: none) {
+  .vf-cut {
+    display: none;
+  }
+}
+
+/* ───────── Traçado do fluxo principal no diagrama ───────── */
+.diagram .trace {
+  stroke-dasharray: 1;
+  animation: trace 620ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes trace {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ───────── Meio-clique: as cantoneiras fecham ao pressionar ───────── */
+.btn.brk:active::after {
+  inset: 9px;
+  transition: inset 80ms steps(2, end);
+}
+.clip:active .clip__thumb::after {
+  inset: 9px;
+  transition: inset 80ms steps(2, end);
+}
+
+/* ───────── Entrada em foco ao rolar ─────────
+   O conteúdo é visível por padrão; só fica oculto depois que o script
+   liga .reveal-on e enquanto o bloco não chegou à tela. */
+.reveal-on :is(
+    .reel__head, .feature, .clips > li, .archive h3, .log__entry, .edu, .stack__row,
+    .end__band, .end__title, .end__lede, .end__list > li, .colophon,
+    .case__cols > section, .case__stack, .case__links, .case__private,
+    .case__gallery figure, .case__next
+  ) {
+  transition:
+    opacity 480ms steps(4, end) var(--reveal-delay, 0ms),
+    filter 640ms cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
+    transform 640ms cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
+}
+.reveal-on :is(
+    .reel__head, .feature, .clips > li, .archive h3, .log__entry, .edu, .stack__row,
+    .end__band, .end__title, .end__lede, .end__list > li, .colophon,
+    .case__cols > section, .case__stack, .case__links, .case__private,
+    .case__gallery figure, .case__next
+  ):not(.is-in) {
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(18px);
+}
+
+/* No celular, a entrada usa só opacidade e deslocamento: desfocar blocos
+   altos custa caro em aparelhos modestos. */
+@media (max-width: 760px) {
+  .reveal-on :is(
+      .reel__head, .feature, .clips > li, .archive h3, .log__entry, .edu, .stack__row,
+      .end__band, .end__title, .end__lede, .end__list > li, .colophon,
+      .case__cols > section, .case__stack, .case__links, .case__private,
+      .case__gallery figure, .case__next
+    ):not(.is-in) {
+    filter: none;
+  }
+}
+
+/* ───────── Voltar ao topo ───────── */
+.vf-top-btn {
+  position: fixed;
+  right: 64px;
+  bottom: calc(var(--bar) + 40px);
+  z-index: 35;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  border: 1px solid var(--hud-line);
+  background: var(--lb);
+  color: var(--amber);
+  cursor: pointer;
+  --brk-in: 6px;
+  --brk-l: 9px;
+  animation: osd-on 420ms steps(1, end) both;
+  transition: background-color 120ms steps(2, end), color 120ms steps(2, end);
+}
+.vf-top-btn svg {
+  width: 22px;
+  height: 22px;
+}
+.vf-top-btn:hover {
+  background: var(--amber);
+  color: var(--amber-ink);
+  --brk-c: var(--amber-ink);
+}
+.vf-top-btn:active::after {
+  inset: 10px;
+  transition: inset 80ms steps(2, end);
+}
+.vf-top-btn:focus-visible {
+  box-shadow:
+    0 0 0 3px var(--lb),
+    0 0 0 5px var(--amber);
+}
+@media (max-width: 760px) {
+  .vf-top-btn {
+    right: 20px;
+    bottom: calc(var(--bar) + 86px);
+    width: 52px;
+    height: 52px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
   .vf-cut {
     display: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal-on :is(
+      .reel__head, .feature, .clips > li, .archive h3, .log__entry, .edu, .stack__row,
+      .end__band, .end__title, .end__lede, .end__list > li, .colophon,
+      .case__cols > section, .case__stack, .case__links, .case__private,
+      .case__gallery figure, .case__next
+    ) {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
   }
 }
 
@@ -1242,6 +1501,7 @@ main {
   }
   .open {
     padding-top: 40px;
+    align-content: center;
   }
   .subject {
     order: -1;
@@ -1295,7 +1555,7 @@ main {
   }
   .vf-mobile-nav {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 4px;
     padding: 6px 10px 8px;
   }
@@ -1310,6 +1570,9 @@ main {
     letter-spacing: 0.1em;
     text-decoration: none;
     color: var(--osd-dim);
+    min-width: 0;
+    text-align: center;
+    overflow-wrap: anywhere;
     --brk-in: 0;
     --brk-l: 9px;
   }
@@ -1359,8 +1622,8 @@ main {
     padding: 0 30px;
   }
   .open {
-    gap: 20px;
-    padding-top: 28px;
+    gap: 36px;
+    padding-top: 36px;
   }
   .open__osd--tl {
     margin-top: 6px;
@@ -1424,17 +1687,27 @@ main {
   .end__list {
     grid-template-columns: 1fr;
   }
+  /* No celular, rótulo em cima e valor embaixo: o e-mail cabe em 320 px. */
   .end__link {
-    gap: 12px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 4px 12px;
   }
   .end__link span:first-child {
-    min-width: 5.75rem;
+    grid-column: 1;
+    min-width: 0;
     letter-spacing: 0.12em;
   }
   .end__link strong {
-    font-size: 0.9375rem;
-    overflow-wrap: break-word;
+    grid-column: 1;
+    font-size: 1rem;
+    overflow-wrap: anywhere;
     min-width: 0;
+  }
+  .end__link svg {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: center;
   }
   .case__next {
     grid-template-columns: 1fr;

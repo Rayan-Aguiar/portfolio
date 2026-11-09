@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-09T12:16:41.876251+00:00",
+  "generatedAt": "2026-11-09T13:46:22.897029+00:00",
   "title": "Design System: Rayan Aguiar — Portfólio",
   "extensions": {
     "colorMeta": {
@@ -109,6 +109,21 @@
           "#ffe7aa"
         ]
       },
+      "amber-hover": {
+        "role": "primary",
+        "displayName": "Amber Hover",
+        "canonical": "oklch(85.3% 0.158 80.6)",
+        "tonalRamp": [
+          "#150800",
+          "#3c1c00",
+          "#603800",
+          "#875500",
+          "#b17400",
+          "#dc9500",
+          "#ffb827",
+          "#ffe7aa"
+        ]
+      },
       "amber-ink": {
         "role": "primary",
         "displayName": "Amber Ink",
@@ -126,9 +141,17 @@
       }
     },
     "typographyMeta": {
+      "display-xl": {
+        "displayName": "Display XL",
+        "purpose": "End-of-tape titles: 'Fim da fita.' and 'SEM SINAL'."
+      },
       "display": {
         "displayName": "Display",
-        "purpose": "Opening headline; scaled up for 'Fim da fita.', SEM SINAL and case titles."
+        "purpose": "Opening headline."
+      },
+      "display-case": {
+        "displayName": "Display Case",
+        "purpose": "Case-study titles."
       },
       "headline": {
         "displayName": "Headline",
@@ -138,21 +161,41 @@
         "displayName": "Title",
         "purpose": "Featured clip title."
       },
+      "title-md": {
+        "displayName": "Title Medium",
+        "purpose": "Company names in the experience log; metric figures in Doto at the same step."
+      },
       "title-sm": {
         "displayName": "Title Small",
-        "purpose": "Clip titles, company names, next/prev case links."
+        "purpose": "Clip titles, next/prev case links."
       },
       "lede": {
         "displayName": "Lede",
         "purpose": "One-paragraph intros in OSD Dim, max 58ch."
       },
+      "contact-value": {
+        "displayName": "Contact Value",
+        "purpose": "Value in each contact row."
+      },
       "body": {
         "displayName": "Body",
-        "purpose": "Running text; 1rem under 760px."
+        "purpose": "Running text."
+      },
+      "body-compact": {
+        "displayName": "Body Compact",
+        "purpose": "Body and contact values under 760px; uppercase archive heading."
+      },
+      "label-lg": {
+        "displayName": "Label Large",
+        "purpose": "Bar text, back link, case column labels, colophon."
       },
       "label": {
         "displayName": "Label",
-        "purpose": "Uppercase OSD corner readouts, tags, fact keys."
+        "purpose": "Uppercase OSD corner readouts, link-type and contact keys."
+      },
+      "label-sm": {
+        "displayName": "Label Small",
+        "purpose": "Status tags, case fact keys, AF readout, mobile nav labels."
       },
       "button": {
         "displayName": "Button",
@@ -228,9 +271,29 @@
         "purpose": "Button fill/ink change on hover."
       },
       {
+        "name": "zoom-morph",
+        "value": "460ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "W→T View Transition from clip thumb to project scene."
+      },
+      {
+        "name": "focus-pull",
+        "value": "opacity 480ms steps(4, end); blur 8px→0 and translateY 18px→0 over 640ms cubic-bezier(0.16, 1, 0.3, 1); 70ms stagger, max 4",
+        "purpose": "Blocks rack into focus as they enter the frame; no blur under 760px."
+      },
+      {
+        "name": "top-btn-on",
+        "value": "420ms steps(1, end)",
+        "purpose": "Back-to-top key flickers on like the OSD."
+      },
+      {
+        "name": "press",
+        "value": "80ms steps(2, end)",
+        "purpose": "Brackets tighten on :active, a shutter half-press."
+      },
+      {
         "name": "reduced-motion",
-        "value": "all animations/transitions 0.01ms; cut hidden",
-        "purpose": "Everything static under prefers-reduced-motion."
+        "value": "all animations/transitions 0.01ms; cut hidden; focus pull off; instant scroll",
+        "purpose": "State without travel under prefers-reduced-motion."
       }
     ],
     "breakpoints": [
@@ -255,7 +318,7 @@
       "refersTo": "button-primary",
       "description": "Amber filled key for the one primary action (Falar comigo); resting ink brackets tighten on hover.",
       "html": "<a class=\"ds-btn ds-btn-rec\" href=\"#\">Falar comigo <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M7.9 20A9 9 0 1 0 4 16.1L2 22Z\"/></svg></a>",
-      "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:space-between;gap:18px;min-height:52px;min-width:240px;padding:0 22px;font-family:'Archivo Variable','Archivo',system-ui,sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border:1.5px solid var(--osd,#f2f2ee);background:transparent;color:var(--osd,#f2f2ee);cursor:pointer;transition:background-color 120ms steps(2),color 120ms steps(2)}.ds-btn svg{width:18px;height:18px}.ds-btn:focus-visible{outline:none;box-shadow:0 0 0 3px #0a0a0a,0 0 0 5px #ffb000}.ds-btn::after{content:'';position:absolute;inset:5px;pointer-events:none;--l:9px;--t:2px;background:linear-gradient(var(--c) 0 0) top left/var(--l) var(--t),linear-gradient(var(--c) 0 0) top left/var(--t) var(--l),linear-gradient(var(--c) 0 0) top right/var(--l) var(--t),linear-gradient(var(--c) 0 0) top right/var(--t) var(--l),linear-gradient(var(--c) 0 0) bottom left/var(--l) var(--t),linear-gradient(var(--c) 0 0) bottom left/var(--t) var(--l),linear-gradient(var(--c) 0 0) bottom right/var(--l) var(--t),linear-gradient(var(--c) 0 0) bottom right/var(--t) var(--l);background-repeat:no-repeat}.ds-btn{position:relative}.ds-btn:hover::after{inset:3px}.ds-btn-rec{background:#ffb000;border-color:#ffb000;color:#0a0a0a;--c:#0a0a0a}.ds-btn-rec:hover{background:#ffc23d}"
+      "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:space-between;gap:18px;min-height:52px;min-width:240px;padding:0 22px;font-family:'Archivo Variable','Archivo',system-ui,sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border:1.5px solid var(--osd,#f2f2ee);background:transparent;color:var(--osd,#f2f2ee);cursor:pointer;transition:background-color 120ms steps(2),color 120ms steps(2)}.ds-btn svg{width:18px;height:18px}.ds-btn:focus-visible{outline:none;box-shadow:0 0 0 3px #0a0a0a,0 0 0 5px #ffb000}.ds-btn::after{content:'';position:absolute;inset:5px;pointer-events:none;--l:9px;--t:2px;background:linear-gradient(var(--c) 0 0) top left/var(--l) var(--t),linear-gradient(var(--c) 0 0) top left/var(--t) var(--l),linear-gradient(var(--c) 0 0) top right/var(--l) var(--t),linear-gradient(var(--c) 0 0) top right/var(--t) var(--l),linear-gradient(var(--c) 0 0) bottom left/var(--l) var(--t),linear-gradient(var(--c) 0 0) bottom left/var(--t) var(--l),linear-gradient(var(--c) 0 0) bottom right/var(--l) var(--t),linear-gradient(var(--c) 0 0) bottom right/var(--t) var(--l);background-repeat:no-repeat}.ds-btn{position:relative}.ds-btn:hover::after{inset:3px}.ds-btn-rec{background:#ffb000;border-color:#ffb000;color:#0a0a0a;--c:#0a0a0a}.ds-btn-rec:hover{background:var(--amber-hover, #ffc23d)}"
     },
     {
       "name": "Outline Button",
@@ -264,6 +327,14 @@
       "description": "Secondary action (Currículo PDF); inverts to OSD White on hover.",
       "html": "<a class=\"ds-btn ds-btn-outline\" href=\"#\">Currículo PDF <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z\"/><path d=\"M14 2v4a2 2 0 0 0 2 2h4\"/><path d=\"M12 18v-6\"/><path d=\"m9 15 3 3 3-3\"/></svg></a>",
       "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:space-between;gap:18px;min-height:52px;min-width:240px;padding:0 22px;font-family:'Archivo Variable','Archivo',system-ui,sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border:1.5px solid var(--osd,#f2f2ee);background:transparent;color:var(--osd,#f2f2ee);cursor:pointer;transition:background-color 120ms steps(2),color 120ms steps(2)}.ds-btn svg{width:18px;height:18px}.ds-btn:focus-visible{outline:none;box-shadow:0 0 0 3px #0a0a0a,0 0 0 5px #ffb000}.ds-btn::after{content:'';position:absolute;inset:5px;pointer-events:none;--l:9px;--t:2px;background:linear-gradient(var(--c) 0 0) top left/var(--l) var(--t),linear-gradient(var(--c) 0 0) top left/var(--t) var(--l),linear-gradient(var(--c) 0 0) top right/var(--l) var(--t),linear-gradient(var(--c) 0 0) top right/var(--t) var(--l),linear-gradient(var(--c) 0 0) bottom left/var(--l) var(--t),linear-gradient(var(--c) 0 0) bottom left/var(--t) var(--l),linear-gradient(var(--c) 0 0) bottom right/var(--l) var(--t),linear-gradient(var(--c) 0 0) bottom right/var(--t) var(--l);background-repeat:no-repeat}.ds-btn{position:relative}.ds-btn:hover::after{inset:3px}.ds-btn-outline{--c:#f2f2ee}.ds-btn-outline:hover{background:#f2f2ee;color:#0a0a0a;--c:#0a0a0a}"
+    },
+    {
+      "name": "Back to Top",
+      "kind": "button",
+      "refersTo": "button-top",
+      "description": "Square amber-arrow key fixed bottom-right after 80% of the page; fills amber on hover.",
+      "html": "<button class=\"ds-top-btn\" aria-label=\"Voltar ao topo\"><svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"square\"><path d=\"M12 19V5M5 12l7-7 7 7\"/></svg></button>",
+      "css": ".ds-top-btn { position: relative; display: grid; place-items: center; width: 56px; height: 56px; padding: 0; border: 1px solid #3a4046; border-radius: 0; background: #0a0a0a; color: #ffb000; cursor: pointer; --c: #f2f2ee; transition: background-color 120ms steps(2, end), color 120ms steps(2, end); } .ds-top-btn::after { content: \"\"; position: absolute; inset: 6px; pointer-events: none; background: linear-gradient(var(--c),var(--c)) top left/9px 2px, linear-gradient(var(--c),var(--c)) top left/2px 9px, linear-gradient(var(--c),var(--c)) top right/9px 2px, linear-gradient(var(--c),var(--c)) top right/2px 9px, linear-gradient(var(--c),var(--c)) bottom left/9px 2px, linear-gradient(var(--c),var(--c)) bottom left/2px 9px, linear-gradient(var(--c),var(--c)) bottom right/9px 2px, linear-gradient(var(--c),var(--c)) bottom right/2px 9px; background-repeat: no-repeat; transition: inset 80ms steps(2, end); } .ds-top-btn:hover { background: #ffb000; color: #0a0a0a; --c: #0a0a0a; } .ds-top-btn:active::after { inset: 10px; } .ds-top-btn:focus-visible { outline: none; box-shadow: 0 0 0 3px #0a0a0a, 0 0 0 5px #ffb000; }"
     },
     {
       "name": "Corner Focus Brackets",
@@ -330,7 +401,7 @@
       "Corner brackets as the main mark: safe area, autofocus lock, focus/hover ring, resting button frame, diagram nodes, favicon.",
       "Square everywhere. The only round shape is the blinking REC dot.",
       "Flat. Depth comes from hairlines, a 1px-dot HUD grid, and the fixed letterbox bars.",
-      "Stepped motion only: `steps()` timing, a single-frame black cut between views."
+      "Stepped motion for OSD and chrome (`steps()`). Two motion moments carry the world: **Power-on:** the first visit in a session runs a ~1 s sequence. The frame closes in, the OSD flickers on, the headline scans in left to right, the AF brackets lock and REC starts. **W→T zoom:** a clip's thumbnail morphs into the project scene through a View Transition (460 ms, `cubic-bezier(0.16, 1, 0.3, 1)`), and the diagram's main path traces itself in flow order. Where View Transitions are not supported, a single-frame black cut stands in. **Focus pull on scroll:** blocks below the fold arrive blurred and 18 px low, then rack into focus as they enter the frame (opacity steps, blur and position on the deceleration curve; siblings 70 ms apart, at most 4). **Smooth travel:** header links glide to their section on the same page. Arriving from another page is a hard cut. **Back to top:** after 80% of the page, a bracketed amber-arrow button appears bottom-right (above the mobile nav) and glides back to the top."
     ],
     "rules": [
       {
@@ -363,7 +434,10 @@
       "Do keep the ground Letterbox Black (#0a0a0a) and separate regions with 1px HUD Gray (#2a2f33) hairlines.",
       "Do put facts in the frame's corners as uppercase OSD Label readouts (0.75rem, 700, 0.16em). Over imagery, place them on a translucent black plate.",
       "Do frame every interactive element with the corner focus brackets, and rely on them as the focus-visible indicator. Buttons also get the 2px amber ring.",
-      "Do time every animation with `steps()`, and make everything static under `prefers-reduced-motion`.",
+      "Do time OSD and chrome animation with `steps()`. Reserve the smooth deceleration curve (`cubic-bezier(0.16, 1, 0.3, 1)`) for the W→T zoom and the focus pull's blur and travel; under 760px the focus pull drops the blur.",
+      "Do keep reduced motion as state without travel: no power-on, no zoom, no trace, no focus pull, instant scroll. Delays reset to 0, so nothing stays hidden.",
+      "Do move focus to the arriving heading on navigation (the page h1, or the section h2 for an anchor), and announce new-tab links with a screen-reader-only \"(abre em nova aba)\".",
+      "Do give press feedback by tightening the corner brackets on `:active`, like a shutter half-press.",
       "Do set sentences in Archivo. Keep Doto for display and short readouts, and DSEG14 for counter and large-year digits only.",
       "Do write all UI copy in pt-BR."
     ],
@@ -374,7 +448,7 @@
       "Don't add drop shadows or glows for elevation. The only box-shadow is the button focus ring.",
       "Don't set Portuguese words with accents in DSEG14. It has no diacritic glyphs.",
       "Don't stack a small label above a heading. Readouts live in the frame corners or beside a section headline on its rule, never as a kicker over the title.",
-      "Don't use smooth eased tweens, fades between routes, or parallax. Cuts are one frame."
+      "Don't use fades between routes or parallax. Route changes are one-frame cuts; the only eased movements are the W→T zoom, the focus pull and same-page scroll travel."
     ]
   }
 }

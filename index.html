@@ -10,6 +10,18 @@
     />
     <meta name="theme-color" content="#0a0a0a" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script>
+      // Sequência "ligar a câmera": só na primeira visita da sessão.
+      try {
+        if (!sessionStorage.getItem("vf-on")) {
+          sessionStorage.setItem("vf-on", "1");
+          document.documentElement.classList.add("power-on");
+          setTimeout(function () {
+            document.documentElement.classList.remove("power-on");
+          }, 1800);
+        }
+      } catch (e) {}
+    </script>
 
     <meta property="og:title" content="Rayan Aguiar · Full Stack Engineer" />
     <meta
@@ -23,6 +35,12 @@
     <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body>
+    <noscript>
+      <p style="padding: 24px; font-family: system-ui, sans-serif; color: #f2f2ee; background: #0a0a0a">
+        Rayan Aguiar · Full Stack Engineer. Este site precisa de JavaScript. Contato: rayansiqueira@gmail.com ·
+        WhatsApp (21) 99146-0601 · linkedin.com/in/rayan-siqueira
+      </p>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

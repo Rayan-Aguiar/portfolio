@@ -1,3 +1,4 @@
+import { NewTab } from "@/components/NewTab";
 import { Link } from "react-router-dom";
 import { ArrowRight, ArrowUpRight, FileDown, MessageCircle } from "lucide-react";
 import { site, stack } from "@/data/site";
@@ -34,6 +35,7 @@ export default function Home() {
             <a className="btn btn--rec brk brk--osd" href={site.contacts.whatsapp} target="_blank" rel="noreferrer">
               Falar comigo
               <MessageCircle aria-hidden="true" />
+              <NewTab />
             </a>
             <a className="btn brk brk--osd" href={site.cv} download>
               Currículo PDF
@@ -66,18 +68,26 @@ export default function Home() {
           </p>
         </div>
 
-        <Link to={`/projetos/${feature.slug}`} className="feature brk brk--osd">
-          <Scene project={feature} eager />
+        <Link
+          to={`/projetos/${feature.slug}`}
+          className="feature brk brk--osd"
+          viewTransition
+          aria-labelledby={`t-${feature.slug}`}
+          aria-describedby={`s-${feature.slug} st-${feature.slug}`}
+        >
+          <Scene project={feature} eager shared decorative />
           <div className="feature__body">
-            <h3 className="feature__title">{feature.title}</h3>
-            <p>{feature.summary}</p>
+            <h3 id={`t-${feature.slug}`} className="feature__title">
+              {feature.title}
+            </h3>
+            <p id={`s-${feature.slug}`}>{feature.summary}</p>
             <p>{feature.problem}</p>
             <div className="feature__meta">
-              <span className="tag">
+              <span className="tag" aria-hidden="true">
                 <span className="seg">C01</span> {feature.kind}
               </span>
-              <StatusTag project={feature} />
-              <span className="tag">
+              <StatusTag project={feature} id={`st-${feature.slug}`} />
+              <span className="tag" aria-hidden="true">
                 Ver arquitetura <ArrowRight aria-hidden="true" />
               </span>
             </div>
@@ -87,19 +97,31 @@ export default function Home() {
         <ol className="clips">
           {rest.map((p, i) => (
             <li key={p.slug}>
-              <Link to={`/projetos/${p.slug}`} className="clip brk">
-                <span className="clip__no">
+              <Link
+                to={`/projetos/${p.slug}`}
+                className="clip brk"
+                viewTransition
+                aria-labelledby={`t-${p.slug}`}
+                aria-describedby={`s-${p.slug} st-${p.slug}`}
+              >
+                <span className="clip__no" aria-hidden="true">
                   <span className="seg">C{pad(i + 2)}</span>
                   <span>{p.year}</span>
                 </span>
                 <Thumb project={p} />
                 <div>
-                  <h3 className="clip__title">{p.title}</h3>
-                  <p className="clip__summary">{p.summary}</p>
+                  <h3 id={`t-${p.slug}`} className="clip__title">
+                    {p.title}
+                  </h3>
+                  <p id={`s-${p.slug}`} className="clip__summary">
+                    {p.summary}
+                  </p>
                 </div>
-                <p className="clip__stack">{p.stack.slice(0, 4).join(" / ")}</p>
+                <p className="clip__stack" aria-hidden="true">
+                  {p.stack.slice(0, 4).join(" / ")}
+                </p>
                 <span className="clip__status">
-                  <StatusTag project={p} />
+                  <StatusTag project={p} id={`st-${p.slug}`} />
                 </span>
               </Link>
             </li>
@@ -111,14 +133,24 @@ export default function Home() {
           <ol className="clips" style={{ marginTop: 0 }}>
             {archive.map((p, i) => (
               <li key={p.slug}>
-                <Link to={`/projetos/${p.slug}`} className="clip brk">
-                  <span className="clip__no">
+                <Link
+                  to={`/projetos/${p.slug}`}
+                  className="clip brk"
+                  viewTransition
+                  aria-labelledby={`t-${p.slug}`}
+                  aria-describedby={`s-${p.slug}`}
+                >
+                  <span className="clip__no" aria-hidden="true">
                     <span className="seg">A{pad(i + 1)}</span>
                   </span>
                   <Thumb project={p} />
                   <div>
-                    <h4 className="clip__title">{p.title}</h4>
-                    <p className="clip__summary">{p.summary}</p>
+                    <h4 id={`t-${p.slug}`} className="clip__title">
+                      {p.title}
+                    </h4>
+                    <p id={`s-${p.slug}`} className="clip__summary">
+                      {p.summary}
+                    </p>
                   </div>
                   <span className="clip__status tag">
                     <span className="seg">{p.year}</span>
@@ -239,6 +271,7 @@ export default function Home() {
               <span>WhatsApp</span>
               <strong>{site.contacts.whatsappDisplay}</strong>
               <ArrowUpRight aria-hidden="true" />
+              <NewTab />
             </a>
           </li>
           <li>
@@ -253,6 +286,7 @@ export default function Home() {
               <span>LinkedIn</span>
               <strong>{site.contacts.linkedinDisplay}</strong>
               <ArrowUpRight aria-hidden="true" />
+              <NewTab />
             </a>
           </li>
           <li>
@@ -260,6 +294,7 @@ export default function Home() {
               <span>GitHub</span>
               <strong>{site.contacts.githubDisplay}</strong>
               <ArrowUpRight aria-hidden="true" />
+              <NewTab />
             </a>
           </li>
           <li>

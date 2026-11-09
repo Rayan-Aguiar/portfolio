@@ -1,3 +1,4 @@
+import { NewTab } from "@/components/NewTab";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowUpRight, Github, Lock, MessageCircle } from "lucide-react";
 import { allProjects, findProject } from "@/data/projects";
@@ -19,7 +20,7 @@ export default function Project() {
 
   return (
     <article className="wrap case" aria-labelledby="case-titulo">
-      <Link to="/#projetos" className="case__back brk brk--osd">
+      <Link to="/#projetos" className="case__back brk brk--osd" viewTransition>
         <ArrowLeft aria-hidden="true" />
         Todos os projetos
       </Link>
@@ -52,7 +53,7 @@ export default function Project() {
       </header>
 
       <div className="case__scene">
-        <Scene project={project} eager />
+        <Scene project={project} eager shared trace />
       </div>
 
       <div className="case__cols">
@@ -89,6 +90,7 @@ export default function Project() {
           <a className="btn btn--rec brk brk--osd" href={project.links.site} target="_blank" rel="noreferrer">
             Abrir o site
             <ArrowUpRight aria-hidden="true" />
+            <NewTab />
           </a>
         )}
         {project.links?.repo && (
@@ -100,12 +102,14 @@ export default function Project() {
           >
             Ver o código
             <Github aria-hidden="true" />
+            <NewTab />
           </a>
         )}
         {!project.links?.site && !project.links?.repo && (
           <a className="btn btn--rec brk brk--osd" href={site.contacts.whatsapp} target="_blank" rel="noreferrer">
             Falar sobre o projeto
             <MessageCircle aria-hidden="true" />
+            <NewTab />
           </a>
         )}
       </div>
@@ -121,18 +125,18 @@ export default function Project() {
         <div className="case__gallery">
           {project.gallery.map((g) => (
             <figure key={g.src}>
-              <img src={g.src} alt={g.alt} loading="lazy" decoding="async" />
+              <img src={g.src} alt={g.alt} width={g.width} height={g.height} loading="lazy" decoding="async" />
             </figure>
           ))}
         </div>
       )}
 
       <nav className="case__next" aria-label="Outros projetos">
-        <Link to={`/projetos/${prev.slug}`} className="brk brk--osd">
+        <Link to={`/projetos/${prev.slug}`} className="brk brk--osd" viewTransition>
           <span>← Clipe anterior</span>
           <strong>{prev.title}</strong>
         </Link>
-        <Link to={`/projetos/${next.slug}`} className="brk brk--osd">
+        <Link to={`/projetos/${next.slug}`} className="brk brk--osd" viewTransition>
           <span>Próximo clipe →</span>
           <strong>{next.title}</strong>
         </Link>
