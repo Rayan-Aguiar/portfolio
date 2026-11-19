@@ -16,12 +16,10 @@ export function scrollToTop() {
 
 /* Blocos que "entram em foco" ao chegar na tela. O quadro do projeto
    (.case__scene) fica de fora: é o destino do zoom W→T e precisa estar
-   visível desde o primeiro quadro. */
+   visível desde o primeiro quadro. A ilha de edição também: a janela de
+   foco mede a posição dos clipes, e eles não podem chegar deslocados. */
 const REVEAL = [
   ".reel__head",
-  ".feature",
-  ".clips > li",
-  ".archive h3",
   ".log__entry",
   ".edu",
   ".stack__row",

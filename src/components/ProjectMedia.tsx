@@ -2,24 +2,6 @@ import { Lock } from "lucide-react";
 import type { Project } from "@/data/projects";
 import { Diagram } from "./Diagram";
 
-/** Miniatura do clipe na lista. */
-export function Thumb({ project }: { project: Project }) {
-  const m = project.media;
-  return (
-    <div
-      className="clip__thumb brk brk--osd is-on"
-      aria-hidden="true"
-      style={{ viewTransitionName: `clip-${project.slug}` }}
-    >
-      {m.type === "diagram" ? (
-        <Diagram data={m.diagram} label="" compact />
-      ) : (
-        <img src={m.src} alt="" loading="lazy" decoding="async" />
-      )}
-    </div>
-  );
-}
-
 export function StatusTag({ project, id }: { project: Project; id?: string }) {
   if (project.status === "em evolução")
     return (
@@ -48,18 +30,23 @@ interface SceneProps {
   eager?: boolean;
   /** Participa do zoom compartilhado entre a lista e a página do projeto. */
   shared?: boolean;
-  /** Traça o caminho principal do diagrama ao abrir. */
+  /** Traça o caminho principal do diagrama ao montar. */
   trace?: boolean;
-  /** Dentro de um link: a imagem é decorativa, o link já tem nome. */
+  /** Repete o que já está escrito ao lado: fica fora do leitor de tela. */
   decorative?: boolean;
+  /** Captura clicável: abre o zoom a partir deste quadro. */
+  onZoom?: (trigger: HTMLElement) => void;
 }
 
-export function Scene({ project, eager, shared, trace, decorative }: SceneProps) {
+export function Scene({ project, eager, shared, trace, decorative, onZoom }: SceneProps) {
   const m = project.media;
+  const zoomable = m.type === "image" && Boolean(onZoom);
+  const frame = m.type === "image" && m.frame === "phone" ? "scene__media scene__media--phone" : "scene__media scene__media--shot";
+
   return (
     <figure
       className="scene"
-      aria-hidden={decorative || undefined}
+      aria-hidden={(decorative && !zoomable) || undefined}
       style={shared ? { viewTransitionName: `clip-${project.slug}` } : undefined}
     >
       {/* Leituras do visor: repetem os dados da página, então ficam fora do leitor de tela. */}
@@ -69,8 +56,16 @@ export function Scene({ project, eager, shared, trace, decorative }: SceneProps)
       <span className="scene__osd scene__osd--tr osd" aria-hidden="true">
         <span className="seg">{project.year}</span>
       </span>
-      <span className="scene__osd scene__osd--bl osd" aria-hidden="true">
-        {m.type === "diagram" ? "Arquitetura" : "Captura"}
+      <span className={zoomable ? "scene__osd scene__osd--bl scene__osd--zoom osd" : "scene__osd scene__osd--bl osd"} aria-hidden="true">
+        {m.type === "diagram" ? (
+          "Arquitetura"
+        ) : zoomable ? (
+          <>
+            <b>+</b> Ampliar
+          </>
+        ) : (
+          "Captura"
+        )}
       </span>
       <span className="scene__osd scene__osd--br" aria-hidden="true">
         <StatusTag project={project} />
@@ -78,14 +73,23 @@ export function Scene({ project, eager, shared, trace, decorative }: SceneProps)
       {m.type === "diagram" ? (
         <div
           className="scene__media"
-          tabIndex={trace ? 0 : undefined}
-          role={trace ? "region" : undefined}
-          aria-label={trace ? `Diagrama de arquitetura de ${project.title}` : undefined}
+          tabIndex={trace && !decorative ? 0 : undefined}
+          role={trace && !decorative ? "region" : undefined}
+          aria-label={trace && !decorative ? `Diagrama de arquitetura de ${project.title}` : undefined}
         >
           <Diagram data={m.diagram} label={m.alt} trace={trace} />
         </div>
+      ) : zoomable ? (
+        <button
+          type="button"
+          className={frame}
+          onClick={(e) => onZoom?.(e.currentTarget)}
+          aria-label={`Ampliar captura: ${m.alt}`}
+        >
+          <img src={m.src} alt="" width={m.width} height={m.height} loading={eager ? "eager" : "lazy"} decoding="async" />
+        </button>
       ) : (
-        <div className={m.frame === "phone" ? "scene__media scene__media--phone" : "scene__media scene__media--shot"}>
+        <div className={frame}>
           <img
             src={m.src}
             alt={m.alt}
