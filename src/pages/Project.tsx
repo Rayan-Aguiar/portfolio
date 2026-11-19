@@ -1,15 +1,18 @@
+import { useRef } from "react";
 import { NewTab } from "@/components/NewTab";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowUpRight, Github, Lock, MessageCircle } from "lucide-react";
 import { allProjects, findProject } from "@/data/projects";
 import { site } from "@/data/site";
 import { Scene } from "@/components/ProjectMedia";
+import { CaptureZoom, type CaptureZoomHandle } from "@/components/CaptureZoom";
 import { useTitle } from "@/lib/useTitle";
 import NotFound from "./NotFound";
 
 export default function Project() {
   const { slug } = useParams();
   const project = findProject(slug);
+  const zoom = useRef<CaptureZoomHandle>(null);
   useTitle(project?.title);
 
   if (!project) return <NotFound />;
@@ -53,7 +56,16 @@ export default function Project() {
       </header>
 
       <div className="case__scene">
-        <Scene project={project} eager shared trace />
+        <Scene
+          project={project}
+          eager
+          shared
+          trace
+          onZoom={(el) => {
+            const m = project.media;
+            if (m.type === "image") zoom.current?.open({ src: m.src, alt: m.alt, width: m.width, height: m.height, title: project.title }, el);
+          }}
+        />
       </div>
 
       <div className="case__cols">
@@ -125,7 +137,14 @@ export default function Project() {
         <div className="case__gallery">
           {project.gallery.map((g) => (
             <figure key={g.src}>
-              <img src={g.src} alt={g.alt} width={g.width} height={g.height} loading="lazy" decoding="async" />
+              <button
+                type="button"
+                className="case__shot"
+                onClick={(e) => zoom.current?.open({ ...g, title: project.title }, e.currentTarget)}
+                aria-label={`Ampliar: ${g.alt}`}
+              >
+                <img src={g.src} alt="" width={g.width} height={g.height} loading="lazy" decoding="async" />
+              </button>
             </figure>
           ))}
         </div>
@@ -141,6 +160,8 @@ export default function Project() {
           <strong>{next.title}</strong>
         </Link>
       </nav>
+
+      <CaptureZoom ref={zoom} />
     </article>
   );
 }

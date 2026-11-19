@@ -184,8 +184,7 @@ h2[tabindex="-1"]:focus {
 .brk:focus-visible::after {
   animation: brk-snap 180ms var(--ease-step);
 }
-.btn.brk::after,
-.clip__thumb.brk::after {
+.btn.brk::after {
   animation: none;
 }
 .brk--osd {
@@ -458,7 +457,7 @@ main {
 /* ───────────────────────── Tipografia ───────────────────────── */
 .display,
 .h2,
-.feature__title {
+.monitor__title {
   overflow-wrap: anywhere;
 }
 .display {
@@ -507,6 +506,43 @@ main {
 }
 .open__title {
   font-size: clamp(2.5rem, 4.6vw, 4.75rem);
+}
+
+/* Título que escreve e apaga: as frases dividem a mesma célula. As invisíveis
+   reservam a altura da maior; o trecho ainda não digitado ocupa o lugar sem
+   aparecer, então as linhas não mudam enquanto o texto surge. */
+.typer {
+  display: grid;
+  /* Sem balance: o balanceamento é recalculado conforme o texto se divide
+     entre digitado e não digitado, e as palavras trocariam de linha. */
+  text-wrap: wrap;
+}
+.typer__ghost,
+.typer__line {
+  grid-area: 1 / 1;
+}
+.typer__ghost {
+  visibility: hidden;
+}
+.typer__line {
+  position: relative;
+}
+.typer__off {
+  color: transparent;
+}
+/* Cursor do gerador de caracteres: um bloco âmbar fora do texto, posicionado
+   pelo script sobre o último caractere digitado. Pisca só com a frase parada. */
+.typer__cursor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0.5em;
+  pointer-events: none;
+  background: var(--amber);
+  clip-path: inset(9% 0 7% 0);
+}
+.typer__cursor.is-idle {
+  animation: rec 1.1s steps(1, end) infinite;
 }
 .open__osd {
   position: absolute;
@@ -606,102 +642,610 @@ main {
   color: var(--osd-dim);
 }
 
-/* Clipe em destaque */
-.feature {
+/* ───────────────────────── Ilha de edição ─────────────────────────
+   A lista de clipes passa por uma janela de foco parada no meio da tela;
+   o monitor ao lado mostra o clipe que está nela. */
+.suite {
   display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
-  gap: clamp(28px, 4vw, 56px);
-  align-items: end;
-  margin-top: 48px;
-  text-decoration: none;
-  --brk-in: -16px;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(32px, 4vw, 64px);
+  align-items: start;
+  margin-top: 8px;
 }
-.feature > * {
+
+.suite__log {
   min-width: 0;
 }
-.feature__title {
+/* Janela e lista dividem a mesma célula. O quadro termina com a lista, então
+   a janela sticky fica presa do primeiro ao último clipe; a folga do monitor
+   (.suite__tail, altura calculada no script) fica fora dele. */
+.suite__frame {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+.suite__list {
+  grid-row: 1;
+  grid-column: 1;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.suite__playhead {
+  --ph: 120px;
+  grid-row: 1;
+  grid-column: 1;
+  align-self: start;
+  position: sticky;
+  top: calc(50svh - var(--ph) / 2);
+  z-index: 0;
+  height: var(--ph);
+  margin: 0 -14px 0 -12px;
+  pointer-events: none;
+  background: var(--raise);
+  transition:
+    height 120ms steps(3, end),
+    top 120ms steps(3, end);
+}
+.suite__playhead::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  --c: var(--amber);
+  --l: 12px;
+  --t: 2px;
+  background:
+    linear-gradient(var(--c) 0 0) top left / var(--l) var(--t),
+    linear-gradient(var(--c) 0 0) top left / var(--t) var(--l),
+    linear-gradient(var(--c) 0 0) top right / var(--l) var(--t),
+    linear-gradient(var(--c) 0 0) top right / var(--t) var(--l),
+    linear-gradient(var(--c) 0 0) bottom left / var(--l) var(--t),
+    linear-gradient(var(--c) 0 0) bottom left / var(--t) var(--l),
+    linear-gradient(var(--c) 0 0) bottom right / var(--l) var(--t),
+    linear-gradient(var(--c) 0 0) bottom right / var(--t) var(--l);
+  background-repeat: no-repeat;
+}
+.suite__playhead.is-lock::after {
+  animation: brk-snap 180ms var(--ease-step);
+}
+.suite__af {
+  position: absolute;
+  top: 50%;
+  left: -34px;
+  transform: translateY(-50%);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--amber);
+}
+
+.suite__clips > li {
+  border-bottom: 1px solid var(--hud);
+}
+.suite__group {
+  padding: 40px 0 10px;
+  border-bottom: 1px solid var(--hud);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--osd-dim);
+}
+.suite__row {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  gap: 4px 16px;
+  margin-inline: -12px -14px;
+  padding: 18px 14px 18px 12px;
+  text-decoration: none;
+  --brk-in: 4px 0;
+  --brk-l: 10px;
+  --brk-c: var(--osd-dim);
+}
+.suite__row.is-active:hover::after {
+  opacity: 0;
+}
+.suite__row:focus-visible::after {
+  --brk-c: var(--osd);
+}
+.suite__no {
+  display: grid;
+  gap: 2px;
+  align-content: start;
+  padding-top: 3px;
+}
+.suite__no .seg {
+  font-size: 0.875rem;
+  color: var(--osd-dim);
+  transition: color 120ms steps(2, end);
+}
+.suite__no .suite__year {
+  font-size: 0.75rem;
+}
+.suite__row.is-active .suite__no .seg:first-child {
+  color: var(--amber);
+}
+.suite__body {
+  min-width: 0;
+}
+.suite__title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+.suite__summary {
+  margin-top: 4px;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--osd-dim);
+}
+.suite__flow {
+  display: none;
+  margin-top: 14px;
+}
+.suite__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin-top: 10px;
+}
+.suite__shot,
+.suite__strip {
+  display: none;
+}
+
+/* Monitor */
+.monitor {
+  position: sticky;
+  top: calc(var(--bar) + 28px);
+  min-width: 0;
+}
+.monitor__cut {
+  position: relative;
+}
+/* Corte seco entre clipes: um quadro preto, e o OSD pisca ao religar. */
+.monitor__cut::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: var(--lb);
+  pointer-events: none;
+  animation: cut 120ms steps(1, end) forwards;
+}
+.monitor__cut .scene__osd {
+  animation: osd-on 420ms steps(1, end) both;
+}
+.monitor .scene {
+  aspect-ratio: 2 / 1;
+  min-height: 220px;
+  max-height: calc(100svh - var(--bar) * 2 - 330px);
+}
+.monitor .scene__media {
+  position: absolute;
+  inset: 0;
+}
+.monitor .diagram {
+  position: absolute;
+  inset: 0;
+}
+.monitor .diagram svg {
+  height: 100%;
+}
+.monitor .scene__media--shot {
+  padding: 46px 0;
+}
+.monitor .scene__media--phone {
+  padding: 18px;
+}
+.monitor .scene__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.monitor .scene__media--phone img {
+  width: auto;
+}
+.monitor__rail {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 12px;
+  border: 1px solid var(--hud);
+  border-top: 0;
+}
+.monitor__play {
+  flex: none;
+  width: 0;
+  height: 0;
+  border-block: 6px solid transparent;
+  border-left: 9px solid var(--amber);
+}
+.monitor__no {
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+.monitor__no b {
+  font-weight: 800;
+  color: var(--amber);
+}
+.ticks {
+  flex: 1;
+  display: flex;
+  gap: 3px;
+  min-width: 0;
+}
+.tick {
+  position: relative;
+  flex: 1;
+  min-width: 6px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.tick--arc {
+  flex: 0.6;
+}
+.tick::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 2px;
+  margin-top: -1px;
+  background: var(--hud-line);
+  transition:
+    height 80ms steps(2, end),
+    margin 80ms steps(2, end);
+}
+.tick.is-past::before {
+  background: rgba(255, 176, 0, 0.45);
+}
+.tick.is-on::before {
+  height: 6px;
+  margin-top: -3px;
+  background: var(--amber);
+}
+button.tick:hover::before {
+  height: 8px;
+  margin-top: -4px;
+  background: var(--osd);
+}
+.monitor__info {
+  display: grid;
+  gap: 14px;
+  padding-top: 22px;
+  animation: text-in 200ms steps(3, end) both;
+}
+.monitor__title {
   font-family: var(--f-display);
   font-weight: 800;
   font-size: clamp(1.75rem, 2.6vw, 2.5rem);
   line-height: 1.05;
   text-wrap: balance;
 }
-.feature__body p {
-  margin-top: 16px;
+.monitor__summary {
+  max-width: 60ch;
+  font-size: 1rem;
+  line-height: 1.55;
   color: var(--osd-dim);
 }
-.feature__meta {
-  margin-top: 24px;
+.monitor__meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 18px;
+  align-items: center;
+  gap: 10px 22px;
+  padding-top: 4px;
+}
+.monitor__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  --brk-in: 0 -10px;
+}
+.monitor__cta svg {
+  width: 14px;
+  height: 14px;
+}
+/* Telas baixas: o resumo já está na linha da lista, então sai do monitor. */
+@media (max-height: 820px) {
+  .monitor__summary {
+    display: none;
+  }
+  .monitor__title {
+    font-size: clamp(1.5rem, 2.2vw, 2rem);
+  }
+  .monitor__info {
+    gap: 10px;
+    padding-top: 16px;
+  }
 }
 
-/* Lista de clipes */
-.clips {
-  margin-top: 64px;
-  border-top: 1px solid var(--hud);
+/* Capturas clicáveis */
+button.scene__media {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
 }
-.clip {
-  display: grid;
-  grid-template-columns: 64px 176px minmax(0, 1fr) minmax(0, 15rem) 120px;
-  gap: 28px;
-  align-items: center;
-  padding: 22px 0;
-  border-bottom: 1px solid var(--hud);
-  text-decoration: none;
-  --brk-in: 6px -14px;
+button.scene__media:not(.scene__media--phone) {
+  display: block;
 }
-.clip:hover {
-  background: linear-gradient(90deg, transparent, var(--raise) 12%, var(--raise) 88%, transparent);
+button.scene__media:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: -2px;
 }
-.clip__no {
-  display: grid;
-  gap: 2px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--osd-dim);
-}
-.clip__no .seg {
-  font-size: 0.875rem;
+.scene__osd--zoom {
   color: var(--osd);
 }
-.clip:hover .clip__no .seg {
+.scene__osd--zoom b {
+  font-weight: 800;
   color: var(--amber);
 }
-.clip__thumb {
-  --brk-in: 4px;
-  --brk-c: var(--osd-dim);
-  --brk-l: 9px;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
+.scene:has(button.scene__media:hover) .scene__osd--zoom {
+  color: var(--amber);
+}
+
+/* Assinatura do fluxo */
+.flow-sig__k {
+  margin-bottom: 8px;
+}
+.flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 4px;
+}
+.flow li {
+  display: contents;
+}
+.flow__node {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 3px 9px;
+  border: 1px solid var(--hud-line);
   background: var(--lb);
-  border: 1px solid var(--hud);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--osd);
+  white-space: nowrap;
 }
-.clip__thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top;
+.flow__node--client::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  margin-right: 7px;
+  background: var(--amber);
 }
-.clip__title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  line-height: 1.25;
-}
-.clip__summary {
-  margin-top: 4px;
-  color: var(--osd-dim);
-  font-size: 0.975rem;
-  line-height: 1.5;
-}
-.clip__stack {
+.flow__arrow {
+  padding-inline: 2px;
   font-size: 0.875rem;
   color: var(--osd-dim);
-  line-height: 1.5;
 }
-.clip__status {
-  justify-self: end;
+.flow__arrow--async {
+  letter-spacing: -0.1em;
+}
+.flow--stack .flow__node {
+  border-style: dashed;
+  color: var(--osd-dim);
+}
+/* O sinal percorre a assinatura no compasso do traçado do diagrama. */
+.is-tracing .flow__node,
+.is-tracing .flow__arrow {
+  animation: flow-lit 560ms linear forwards;
+  animation-delay: calc(var(--i) * 110ms + 380ms);
+}
+
+/* Zoom W→T das capturas: o visor ampliado fica entre as barras. */
+.zoomer {
+  position: fixed;
+  top: var(--zt, var(--bar));
+  bottom: var(--zb, var(--bar));
+  left: 0;
+  width: 100%;
+  height: auto;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  background: rgba(10, 10, 10, 0.96);
+  color: var(--osd);
+  cursor: zoom-out;
+}
+.zoomer::backdrop {
+  background: transparent;
+}
+.zoomer__pic {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 4%;
+}
+.zoomer__pic img {
+  flex: none;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  transform-origin: 0 0;
+}
+.zoomer__safe {
+  position: absolute;
+  inset: 14px;
+  pointer-events: none;
+  --c: var(--amber);
+  --l: 28px;
+  --t: 2px;
+  background:
+    linear-gradient(var(--c) 0 0) top left / var(--l) var(--t),
+    linear-gradient(var(--c) 0 0) top left / var(--t) var(--l),
+    linear-gradient(var(--c) 0 0) top right / var(--l) var(--t),
+    linear-gradient(var(--c) 0 0) top right / var(--t) var(--l),
+    linear-gradient(var(--c) 0 0) bottom left / var(--l) var(--t),
+    linear-gradient(var(--c) 0 0) bottom left / var(--t) var(--l),
+    linear-gradient(var(--c) 0 0) bottom right / var(--l) var(--t),
+    linear-gradient(var(--c) 0 0) bottom right / var(--t) var(--l);
+  background-repeat: no-repeat;
+}
+/* No celular o site esconde as leituras de baixo; no zoom elas ficam (o fechar está ali). */
+.zoomer .scene__osd {
+  display: flex;
+}
+.zoomer .scene__osd--tl,
+.zoomer .scene__osd--tr {
+  top: 22px;
+}
+.zoomer .scene__osd--bl,
+.zoomer .scene__osd--br {
+  bottom: 22px;
+}
+.zoomer .scene__osd--tl,
+.zoomer .scene__osd--bl {
+  left: 22px;
+}
+.zoomer .scene__osd--tr,
+.zoomer .scene__osd--br {
+  right: 22px;
+}
+.zoomer .scene__osd--tl {
+  max-width: calc(100% - 150px);
+}
+.zoomer .scene__osd--tl b {
+  overflow: hidden;
+  color: var(--osd);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.zoomer__t {
+  color: var(--amber);
+}
+.zoomer__close {
+  min-height: 36px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--osd);
+  cursor: pointer;
+  --brk-in: -4px -8px;
+}
+.zoomer__close:focus-visible {
+  color: var(--amber);
+}
+.zoomer.is-on :is(.scene__osd, .zoomer__safe) {
+  animation: osd-on 420ms steps(1, end) 300ms both;
+}
+/* Ao sair, o OSD desliga primeiro e a captura volta ao lugar. */
+.zoomer.is-off :is(.scene__osd, .zoomer__safe) {
+  opacity: 0;
+  transition: opacity 120ms steps(2, end);
+}
+
+/* Abaixo de 900 px: sem monitor. Os clipes viram cartões com a assinatura
+   do fluxo, e a janela de foco funciona como foco automático. */
+@media (max-width: 900px) {
+  .suite {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .monitor {
+    display: none;
+  }
+  .suite__playhead {
+    margin-inline: -12px;
+  }
+  .suite__af {
+    display: none;
+  }
+  .suite__row {
+    grid-template-columns: minmax(0, 1fr);
+    margin-inline: -12px;
+    padding: 22px 12px;
+    --brk-in: 6px 2px;
+  }
+  .suite__no {
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+    padding: 0 0 6px;
+  }
+  .suite__flow {
+    display: block;
+  }
+  .suite__shot {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    aspect-ratio: 2 / 1;
+    margin: -8px 0 22px;
+    padding: 10px 0;
+    border: 1px solid var(--hud);
+    background-color: var(--lb);
+    background-image: radial-gradient(var(--hud-line) 1px, transparent 1.2px);
+    background-size: 20px 20px;
+    cursor: zoom-in;
+  }
+  .suite__shot img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .suite__shot:focus-visible {
+    outline: 2px solid var(--amber);
+    outline-offset: 2px;
+  }
+  .suite__shot .scene__osd {
+    bottom: 8px;
+    left: 8px;
+    padding: 4px 8px;
+  }
+  .suite__strip {
+    position: sticky;
+    top: var(--bar);
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 48px;
+    padding: 10px 0;
+    background: var(--lb);
+    border-bottom: 1px solid var(--hud);
+  }
+  .suite__strip-no {
+    font-size: 0.875rem;
+    color: var(--amber);
+  }
+  .suite__strip-name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .ticks--mini {
+    flex: 0 0 34%;
+  }
+  .ticks--mini .tick {
+    min-width: 3px;
+    height: 20px;
+  }
 }
 
 .tag {
@@ -733,25 +1277,6 @@ main {
 .tag svg {
   width: 13px;
   height: 13px;
-}
-
-.archive {
-  margin-top: 72px;
-}
-.archive h3 {
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--osd-dim);
-  padding-bottom: 16px;
-}
-.archive .clip {
-  grid-template-columns: 64px 120px minmax(0, 1fr) 120px;
-  padding: 14px 0;
-}
-.archive .clip__title {
-  font-size: 1.0625rem;
 }
 
 /* ───────────────────────── Diagrama ───────────────────────── */
@@ -1134,6 +1659,18 @@ main {
   width: 100%;
   height: auto;
 }
+.case__shot {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+.case__shot:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
 .case__gallery figure {
   border: 1px solid var(--hud);
 }
@@ -1223,6 +1760,21 @@ main {
   100% {
     opacity: 0;
     visibility: hidden;
+  }
+}
+@keyframes text-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes flow-lit {
+  0%,
+  99% {
+    border-color: var(--amber);
+    color: var(--amber);
   }
 }
 @keyframes af-lock {
@@ -1358,16 +1910,12 @@ main {
   inset: 9px;
   transition: inset 80ms steps(2, end);
 }
-.clip:active .clip__thumb::after {
-  inset: 9px;
-  transition: inset 80ms steps(2, end);
-}
 
 /* ───────── Entrada em foco ao rolar ─────────
    O conteúdo é visível por padrão; só fica oculto depois que o script
    liga .reveal-on e enquanto o bloco não chegou à tela. */
 .reveal-on :is(
-    .reel__head, .feature, .clips > li, .archive h3, .log__entry, .edu, .stack__row,
+    .reel__head, .log__entry, .edu, .stack__row,
     .end__band, .end__title, .end__lede, .end__list > li, .colophon,
     .case__cols > section, .case__stack, .case__links, .case__private,
     .case__gallery figure, .case__next
@@ -1378,7 +1926,7 @@ main {
     transform 640ms cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
 }
 .reveal-on :is(
-    .reel__head, .feature, .clips > li, .archive h3, .log__entry, .edu, .stack__row,
+    .reel__head, .log__entry, .edu, .stack__row,
     .end__band, .end__title, .end__lede, .end__list > li, .colophon,
     .case__cols > section, .case__stack, .case__links, .case__private,
     .case__gallery figure, .case__next
@@ -1392,7 +1940,7 @@ main {
    altos custa caro em aparelhos modestos. */
 @media (max-width: 760px) {
   .reveal-on :is(
-      .reel__head, .feature, .clips > li, .archive h3, .log__entry, .edu, .stack__row,
+      .reel__head, .log__entry, .edu, .stack__row,
       .end__band, .end__title, .end__lede, .end__list > li, .colophon,
       .case__cols > section, .case__stack, .case__links, .case__private,
       .case__gallery figure, .case__next
@@ -1469,7 +2017,7 @@ main {
     scroll-behavior: auto;
   }
   .reveal-on :is(
-      .reel__head, .feature, .clips > li, .archive h3, .log__entry, .edu, .stack__row,
+      .reel__head, .log__entry, .edu, .stack__row,
       .end__band, .end__title, .end__lede, .end__list > li, .colophon,
       .case__cols > section, .case__stack, .case__links, .case__private,
       .case__gallery figure, .case__next
@@ -1482,12 +2030,6 @@ main {
 
 /* ───────────────────────── Responsivo ───────────────────────── */
 @media (max-width: 1100px) {
-  .clip {
-    grid-template-columns: 56px 150px minmax(0, 1fr) 110px;
-  }
-  .clip__stack {
-    display: none;
-  }
   .vf-nav a {
     padding: 8px 8px;
   }
@@ -1495,7 +2037,6 @@ main {
 
 @media (max-width: 900px) {
   .open,
-  .feature,
   .case__head {
     grid-template-columns: 1fr;
   }
@@ -1647,29 +2188,8 @@ main {
   .open__actions .btn {
     flex: 1 1 100%;
   }
-  .clip {
-    grid-template-columns: 112px minmax(0, 1fr);
-    gap: 6px 16px;
-    align-items: start;
-    --brk-in: 4px -8px;
-  }
-  .clip__no {
-    display: none;
-  }
-  .clip__thumb {
-    grid-row: span 2;
-  }
-  .clip__status {
-    justify-self: start;
-  }
-  .clip__title {
+  .suite__title {
     font-size: 1.0625rem;
-  }
-  .clip__summary {
-    font-size: 0.9375rem;
-  }
-  .archive .clip {
-    grid-template-columns: 96px minmax(0, 1fr);
   }
   .log__entry,
   .edu,

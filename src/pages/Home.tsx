@@ -1,18 +1,16 @@
 import { NewTab } from "@/components/NewTab";
-import { Link } from "react-router-dom";
-import { ArrowRight, ArrowUpRight, FileDown, MessageCircle } from "lucide-react";
+import { ArrowUpRight, FileDown, MessageCircle } from "lucide-react";
 import { site, stack } from "@/data/site";
 import { archive, projects } from "@/data/projects";
 import { education, jobs } from "@/data/experience";
-import { Scene, StatusTag, Thumb } from "@/components/ProjectMedia";
+import { EditSuite } from "@/components/EditSuite";
+import { Typewriter } from "@/components/Typewriter";
 import { useTitle } from "@/lib/useTitle";
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
 export default function Home() {
   useTitle();
-  const [feature, ...rest] = projects;
-
   return (
     <>
       {/* Abertura: o sujeito travado no foco, uma frase e duas ações. */}
@@ -26,7 +24,7 @@ export default function Home() {
         </p>
         <div>
           <h1 id="titulo" className="display open__title">
-            SISTEMAS QUE RODAM OPERAÇÕES REAIS.
+            <Typewriter phrases={site.headlines} />
           </h1>
           <p className="lede open__lede">
             APIs, integrações e automação com Node.js, TypeScript, MySQL e React.
@@ -68,98 +66,7 @@ export default function Home() {
           </p>
         </div>
 
-        <Link
-          to={`/projetos/${feature.slug}`}
-          className="feature brk brk--osd"
-          viewTransition
-          aria-labelledby={`t-${feature.slug}`}
-          aria-describedby={`s-${feature.slug} st-${feature.slug}`}
-        >
-          <Scene project={feature} eager shared decorative />
-          <div className="feature__body">
-            <h3 id={`t-${feature.slug}`} className="feature__title">
-              {feature.title}
-            </h3>
-            <p id={`s-${feature.slug}`}>{feature.summary}</p>
-            <p>{feature.problem}</p>
-            <div className="feature__meta">
-              <span className="tag" aria-hidden="true">
-                <span className="seg">C01</span> {feature.kind}
-              </span>
-              <StatusTag project={feature} id={`st-${feature.slug}`} />
-              <span className="tag" aria-hidden="true">
-                Ver arquitetura <ArrowRight aria-hidden="true" />
-              </span>
-            </div>
-          </div>
-        </Link>
-
-        <ol className="clips">
-          {rest.map((p, i) => (
-            <li key={p.slug}>
-              <Link
-                to={`/projetos/${p.slug}`}
-                className="clip brk"
-                viewTransition
-                aria-labelledby={`t-${p.slug}`}
-                aria-describedby={`s-${p.slug} st-${p.slug}`}
-              >
-                <span className="clip__no" aria-hidden="true">
-                  <span className="seg">C{pad(i + 2)}</span>
-                  <span>{p.year}</span>
-                </span>
-                <Thumb project={p} />
-                <div>
-                  <h3 id={`t-${p.slug}`} className="clip__title">
-                    {p.title}
-                  </h3>
-                  <p id={`s-${p.slug}`} className="clip__summary">
-                    {p.summary}
-                  </p>
-                </div>
-                <p className="clip__stack" aria-hidden="true">
-                  {p.stack.slice(0, 4).join(" / ")}
-                </p>
-                <span className="clip__status">
-                  <StatusTag project={p} id={`st-${p.slug}`} />
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ol>
-
-        <div className="archive">
-          <h3>Arquivo</h3>
-          <ol className="clips" style={{ marginTop: 0 }}>
-            {archive.map((p, i) => (
-              <li key={p.slug}>
-                <Link
-                  to={`/projetos/${p.slug}`}
-                  className="clip brk"
-                  viewTransition
-                  aria-labelledby={`t-${p.slug}`}
-                  aria-describedby={`s-${p.slug}`}
-                >
-                  <span className="clip__no" aria-hidden="true">
-                    <span className="seg">A{pad(i + 1)}</span>
-                  </span>
-                  <Thumb project={p} />
-                  <div>
-                    <h4 id={`t-${p.slug}`} className="clip__title">
-                      {p.title}
-                    </h4>
-                    <p id={`s-${p.slug}`} className="clip__summary">
-                      {p.summary}
-                    </p>
-                  </div>
-                  <span className="clip__status tag">
-                    <span className="seg">{p.year}</span>
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ol>
-        </div>
+        <EditSuite projects={projects} archive={archive} />
       </section>
 
       {/* Experiência: o log da fita. */}

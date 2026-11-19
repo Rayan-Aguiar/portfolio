@@ -164,8 +164,8 @@ components:
   clip-row:
     backgroundColor: "transparent"
     textColor: "{colors.osd}"
-    padding: "22px 0"
-  clip-row-hover:
+    padding: "18px 14px 18px 12px"
+  focus-window:
     backgroundColor: "{colors.raise}"
   scene:
     backgroundColor: "{colors.letterbox}"
@@ -189,7 +189,10 @@ The look is dense and mechanical, and it never gets decorative. Surfaces are fla
 - Flat. Depth comes from hairlines, a 1px-dot HUD grid, and the fixed letterbox bars.
 - Stepped motion for OSD and chrome (`steps()`). Two motion moments carry the world:
   - **Power-on:** the first visit in a session runs a ~1 s sequence. The frame closes in, the OSD flickers on, the headline scans in left to right, the AF brackets lock and REC starts.
-  - **W→T zoom:** a clip's thumbnail morphs into the project scene through a View Transition (460 ms, `cubic-bezier(0.16, 1, 0.3, 1)`), and the diagram's main path traces itself in flow order.
+  - **Character generator:** the opening headline cycles through three lines (`site.headlines`). The first arrives whole; after 3.4 s it erases (26 ms per character), pauses 380 ms and types the next (55 ms per character), behind an amber block cursor that blinks only while the line holds. The height is reserved for the longest line, untyped characters keep their place (transparent), the cursor sits outside the text (positioned over the last typed character, so it adds no line-break point) and this headline wraps without `text-wrap: balance` (balancing re-runs as the text splits and moves words between lines), so nothing reflows. It pauses off screen and in a hidden tab; with reduced motion only the first line shows. Screen readers always get the first line.
+  - **W→T zoom:** the monitor's frame morphs into the project scene through a View Transition (460 ms, `cubic-bezier(0.16, 1, 0.3, 1)`), and the diagram's main path traces itself in flow order.
+  - **Clip change on the monitor:** a 120 ms black frame, the OSD flickers back on, the main path traces itself and the flow signature lights node by node on the same beat (110 ms apart).
+  - **Capture zoom:** clicking a screenshot grows it from where it sits to fill the frame between the bars (460 ms, same curve), with amber safe corners, OSD readouts and the zoom bar at T. Click or Esc: the OSD switches off first and the image shrinks back to its place (360 ms).
   - Where View Transitions are not supported, a single-frame black cut stands in.
   - **Focus pull on scroll:** blocks below the fold arrive blurred and 18 px low, then rack into focus as they enter the frame (opacity steps, blur and position on the deceleration curve; siblings 70 ms apart, at most 4).
   - **Smooth travel:** header links glide to their section on the same page. Arriving from another page is a hard cut.
@@ -206,7 +209,7 @@ A near-monochrome camera palette: black field, white-and-gray OSD, cool HUD gray
 
 ### Neutral
 - **Letterbox Black** (letterbox): page ground, bars, scene backgrounds, diagram canvas, node fills. The OS chrome follows it too (`theme-color`).
-- **Raised Black** (raise): the only lifted tone. Used solely as the soft horizontal band behind a hovered clip row.
+- **Raised Black** (raise): the only lifted tone. Used solely as the focus window behind the clip in focus in the edit suite.
 - **OSD White** (osd): primary text, outline-button stroke, outline-button hover fill, safe-area corners, zebra stripe ink.
 - **OSD Dim** (osd-dim): secondary text such as ledes, summaries, metadata, inactive nav, tags, list dashes. About 8.9:1 on Letterbox, so it is safe for running text.
 - **HUD Gray** (hud): structural hairlines (1px) for bar borders, row dividers, scene borders, and the stack-section dot grid.
@@ -255,13 +258,13 @@ The frame is fixed. A 56px top bar (52px under 760px) holds the brand, section n
 
 Content lives in a centered wrap, max 1320px, with side padding of the gutter (clamp(20px, 5vw, 88px)) plus 14px; on mobile it is 30px flat. The opening fills the viewport between the bars as a 7fr/5fr grid: headline, lede and actions on the left, the framed photo on the right. OSD corner readouts are absolutely placed top-left and bottom-left. Sections are "reels": a headline and a count readout sit on a 1px HUD rule, followed by content. Reels are separated by clamp(80px, 12vh, 140px) of top padding.
 
-Rows dominate over cards. Project clips are full-width grid rows: number, 16:9 thumb, title and summary, stack, status. The experience log, stack and readings are label/value grids (180–220px key column). Under 900px the two-column compositions collapse to one, and the photo moves above the headline. Under 760px clips become thumb plus text. Spacing steps observed: 4, 8, 16, 24, 40, 64px, with 12/14/20/28/48/56 used locally. Breakpoints are 1100, 900 and 760px.
+Rows dominate over cards. Projects live in the **edit suite**: a clip log (5fr) beside a sticky monitor (7fr). The log scrolls through a focus window fixed at the middle of the screen; the clip inside it plays on the monitor. The experience log, stack and readings are label/value grids (180–220px key column). Under 900px the two-column compositions collapse to one, the photo moves above the headline, the monitor gives way to a sticky strip (clip code, title, trail), and clips become cards with the flow signature and, for screenshot projects, the capture. Spacing steps observed: 4, 8, 16, 24, 40, 64px, with 12/14/20/28/48/56 used locally. Breakpoints are 1100, 900 and 760px.
 
 Under 760px contact rows stack the label over the value (value wraps anywhere, icon spans both lines), so a long e-mail fits at 320px. Display headings (`.display`, section headlines, the featured title) carry `overflow-wrap: anywhere` so a long Doto word never overflows the frame. Touch targets have a floor: 44px minimum height for bar links, brand, status and the back link; 52px for buttons and mobile nav items.
 
 ## Elevation & Depth
 
-The system is flat. Nothing floats on a cast shadow. Depth comes from the frame itself: fixed letterbox bars over the scrolling picture, 1px HUD hairlines, a 1px-dot HUD grid (20px pitch; 12px in thumbnails) behind diagrams and the stack list, and translucent black plates (rgba(10,10,10,0.72–0.78)) behind OSD readouts that sit over imagery. The only lift is Raised Black, used as a hover band on clip rows.
+The system is flat. Nothing floats on a cast shadow. Depth comes from the frame itself: fixed letterbox bars over the scrolling picture, 1px HUD hairlines, a 1px-dot HUD grid (20px pitch; 12px in thumbnails) behind diagrams and the stack list, and translucent black plates (rgba(10,10,10,0.72–0.78)) behind OSD readouts that sit over imagery. The only lift is Raised Black, used as the edit suite's focus window.
 
 ### Shadow Vocabulary
 - **Focus ring** (`box-shadow: 0 0 0 3px #0a0a0a, 0 0 0 5px #ffb000`): keyboard focus on buttons only, alongside their brackets. This is a ring, not elevation.
@@ -293,8 +296,13 @@ The site's focus and hover indicator. Every link, nav item, clip row, contact ro
 - **Status tag:** uppercase Label at 0.6875rem in OSD Dim, with a 13px line icon. "Em evolução" switches to OSD White and leads with the zebra swatch. "Privado" carries a lock icon.
 - **Stack chip** (case study): 1px HUD Line border, square, 6px 12px, 0.875rem Archivo.
 
-### Clip Rows (project list)
-The main list unit. Columns: number (Doto readout plus label), 16:9 bracketed thumb with a 1px HUD border, title and summary, stack in OSD Dim, status tag. A 1px HUD rule sits under each row. On hover the row gets a Raised Black band that fades out at the edges, the number turns amber, and the focus brackets frame the row. Archive rows are a compact variant (120px thumb, 14px padding).
+### Edit Suite (project list)
+- **Clip row:** number and year (Doto readouts), title, summary, kind and status tags, with a 1px HUD rule under each row. Hover shows OSD Dim brackets; it never changes the selection.
+- **Focus window:** a Raised Black band with amber corner brackets and an "AF" mark, sticky at the middle of the screen and sized to the clip under it. The clip whose box holds the window's center is the active one: its number turns amber and it plays on the monitor. When scrolling stops, the clip under the window slides into it. At the start and end of the list the window stays on the first and last clip.
+- **Selection:** only the window selects. Clicking a clip outside it scrolls it into the window; clicking the clip in focus (or Enter from the keyboard) opens the project. Keyboard focus scrolls the clip into the window.
+- **Monitor:** a fixed 2:1 scene with OSD corners, a transport rail (play mark, `C08 / 13`, one tick per clip, amber up to the active one), then the title in Doto, the summary (hidden on screens under 820px tall), the flow signature and "Ver arquitetura →". It repeats the active clip, so it is hidden from screen readers; the list is the content.
+- **Flow signature:** the diagram's main path as a line of square chips: `Upload → API Go ⇢ Fila Redis ⇢ Worker pool → FFmpeg`. Async hops use a dashed arrow; repeated siblings collapse (`OSRM ×5`). Projects without a diagram show up to four stack items in dashed chips, with no arrows.
+- **Archive:** an uppercase label row ("Arquivo") followed by the same rows, numbered A01, A02.
 
 ### Scene (framed media)
 A 1px-HUD-bordered Letterbox box that holds a diagram, a letterboxed screenshot, or a phone shot on the dot grid. OSD readouts sit in its four corners on translucent black plates: kind (top-left), year (top-right), and status (bottom). On mobile only the top two remain.

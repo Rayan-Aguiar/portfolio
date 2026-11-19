@@ -10,6 +10,12 @@ export const site = {
   location: "Nova Iguaçu · RJ",
   years: "4+ anos",
   status: "Aberto a propostas",
+  /** Frases do título da abertura, na ordem em que o gerador de caracteres as escreve. */
+  headlines: [
+    "SISTEMAS QUE RODAM OPERAÇÕES REAIS.",
+    "APIS QUE INTEGRAM SISTEMAS LEGADOS.",
+    "AUTOMAÇÃO NO LUGAR DO TRABALHO MANUAL.",
+  ],
   cv: "/docs/curriculo-rayan-aguiar.pdf",
   photo: "/imagens/rayan.webp",
   contacts: {
